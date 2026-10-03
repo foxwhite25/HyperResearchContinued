@@ -1,0 +1,537 @@
+Colors: {
+	Warning: FF666D
+	Condition: FFE582
+	UsefulNote: FE95FF
+	Note: 8FCBFF
+	Mention: FFAB65
+
+	Game: {
+		JourneyMode: FF78BB
+		CoinSilver: B5C0C1
+		RarityGreen: 96FF96
+		RarityRed: FF9696
+	}
+}
+
+Messages: {
+	ResearchedItems: 已研究 {0} 个新物品：{1}
+	SharedItems: "{0} 分享了 {1} 个物品：{2}"
+	CraftResearchedItems: 已研究 {0} 个可制作物品：{1}
+	ShimmerResearchedItems: 已研究 {0} 个微光转化物品：{1}
+	DecraftResearchedItems: 已研究 {0} 个微光分解物品：{1}
+	Sacrifices: 已献祭 {0} 个物品：{1}
+	SharedSacrifices: "{0} 分享了 {1} 个献祭物品：{2}"
+	OtherPlayerResearchedItems: "{0} 研究了 {1} 个新物品：{2}"
+	SharedAllItems: 已共享 {0} 个物品
+}
+
+Tooltips: {
+	NeededToResearch: 再研究 {0} 个即可解锁复制（{1}/{2}）
+	Researched: 已研究
+	ResearchLoot: 按 {0} 研究所有战利品
+	EnableBuff: 按 {0} 启用增益
+	DisableBuff: 按 {0} 禁用增益
+	EnableBanner: 按 {0} 启用旗帜增益
+	DisableBanner: 按 {0} 禁用旗帜增益
+	ChoosePrefix: 按 {0} 选择所需的修饰语
+}
+
+UI: {
+	InventoryButtons: {
+		ResearchButtonHoverText: "{$Keybinds.ResearchInventoryItems.DisplayName}"
+		ClearButtonHoverText: "{$Keybinds.ClearResearchedItems.DisplayName}"
+		AutoCraftHoverText: "{$Keybinds.ResearchCraftableItems.DisplayName}"
+		ShimmerButtonHoverText: "{$Keybinds.ResearchShimmerItems.DisplayName}"
+		ShimmerDecraftButtonHoverText: "{$Keybinds.ResearchDecraftItems.DisplayName}"
+		ShareButtonHoverText: "{$Keybinds.ShareAllResearched.DisplayName}"
+		ShimmerDisabledHoverText: 必须先访问以太生物群落才能研究微光物品
+		DecraftDisabledHoverText: 必须先访问以太生物群落才能研究微光分解物品
+		ShareDisabledNoTeamHoverText: 必须加入队伍才能共享物品
+		ShareDisabledNoMembersHoverText: 队伍中至少要有 2 名成员才能共享物品
+	}
+
+	ShopButtons.ResearchButtonHoverText: "{$Keybinds.ResearchShop.DisplayName}"
+	DuplicationMenu.TotalResearched: "{0}% 已研究（{1}/{2} 个物品）"
+}
+
+Configs: {
+	HyperConfig: {
+		DisplayName: 客户端配置
+
+		Headers: {
+			AutoResearchSettingsHeader: 自动研究设置
+			BuffsSettingsHeader: 增益设置
+			AutoTrashSettingsHeader: 自动丢弃设置
+			BalanceSettingsHeader: 平衡设置
+			TooltipsSettingsHeader: 提示信息设置
+			ResearchSettingsHeader: 物品研究设置
+			ClearSettingsHeader: 清理设置
+			ConsumptionSettingsHeader: 消耗设置
+			MessagesSettingsHeader: 消息设置
+			SacrificeSettingsHeader: 研究设置
+			MultiplayerMessagesSettingsHeader: 多人模式消息设置
+			UISettingsHeader: 界面设置
+		}
+
+		# === AUTO-RESEARCH SETTINGS ===
+		ResearchInventory: {
+			Name: 自动研究物品栏中的物品
+			Label: "[i:{0}] {$Configs.HyperConfig.ResearchInventory.Name}"
+			Tooltip: 当物品栏中的物品总数达到或超过研究所需数量时，自动进行研究。
+		}
+
+		AutoSacrifice: {
+			Name: 自动献祭
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoSacrifice.Name}"
+			Tooltip:
+				'''
+				拾取时自动献祭物品。
+				与 [c/{$Colors.Mention}:{$Configs.HyperConfig.ResearchInventory.Name}] 不同，
+				此选项不会等待物品栏中积累到完整的研究数量。
+				[c/{$Colors.Warning}:建议禁用] [c/{$Colors.Mention}:{$Configs.HyperConfig.ShowSacrifices.Label}] [c/{$Colors.Warning}:以避免聊天消息过多。]
+				[c/{$Colors.Warning}:不建议与] [c/{$Colors.Mention}:{$Configs.ServerConfig.SyncSacrificesInOneTeam.Label}] [c/{$Colors.Warning}:同时使用。]
+				'''
+		}
+
+		AutoResearchCraftableItems: {
+			Label: "[i:{0}] 自动研究可制作物品"
+			Tooltip:
+				'''
+				研究物品后，会自动研究所有可用已研究材料制作的新物品。
+				[c/{$Colors.Condition}:需要满足已研究的制作站和材料条件] [c/{$Colors.Mention}:（勾选 "{$Configs.HyperConfig.IgnoreCraftingConditions.Name}" 选项）。]
+				[c/{$Colors.Note}:或者指定快捷键，或使用物品栏下方的界面按钮来研究可制作物品。]
+				'''
+		}
+
+		AutoResearchShimmerItems: {
+			Name: 自动研究微光转化物品
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchShimmerItems.Name}"
+			Tooltip:
+				'''
+				自动研究将物品投入微光后产生的转化物品。
+				[c/{$Colors.Condition}:可通过启用] [c/{$Colors.Mention}:{$Configs.HyperConfig.BalanceShimmerAutoresearch.Name}] [c/{$Colors.Condition}:来平衡。]
+				[c/{$Colors.Note}:或者指定快捷键，或使用物品栏下方的界面按钮来研究微光物品。]
+				'''
+		}
+
+		AutoResearchDecraftItems: {
+			Name: 自动研究微光分解物品
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchDecraftItems.Name}"
+			Tooltip:
+				'''
+				自动研究在微光中分解物品所获得的物品。
+				[c/{$Colors.Condition}:可通过启用] [c/{$Colors.Mention}:{$Configs.HyperConfig.BalanceShimmerAutoresearch.Name}] [c/{$Colors.Condition}:来平衡。]
+				[c/{$Colors.Note}:或者指定快捷键，或使用物品栏下方的界面按钮来研究微光分解物品。]
+				'''
+		}
+
+		AutoResearchShop: {
+			Label: "[i:{0}] 自动研究 NPC 商店的内容"
+			Tooltip:
+				'''
+				打开商店时，研究该 NPC 当前出售的所有物品。
+				[c/{$Colors.Condition}:需要先研究对应的货币（例如 ][i:{0}][c/{$Colors.Condition}:护卫奖章）。]
+				[c/{$Colors.Note}:或者指定快捷键，或使用商店界面下方的界面按钮来研究商店内容。]
+				'''
+		}
+
+		# === BUFFS SETTINGS ===
+		UseResearchedBannersBuff: {
+			Label: "[i:{0}] 使用已研究旗帜的增益"
+			Tooltip:
+				'''
+				如果你研究了某个 NPC 的旗帜，即使不放置旗帜，其效果也会作用于你。
+				[c/{$Colors.UsefulNote}:在游戏中，可以在复制菜单里单独禁用各面旗帜。]
+				'''
+		}
+
+		BannerBuffEnabledByDefault: {
+			Label: 研究后默认启用旗帜增益
+			Tooltip: 研究旗帜后，默认启用其增益。
+		}
+
+		UseResearchedPotionsBuff: {
+			Name: 使用已研究药水的增益
+			Label: "[i:{0}] {$Configs.HyperConfig.UseResearchedPotionsBuff.Name}"
+			Tooltip:
+				'''
+				永久获得已研究的药水、食物和药剂瓶的增益。
+				[c/{$Colors.UsefulNote}:在游戏中，可以右键点击增益图标或在复制菜单中单独禁用这些增益。]
+				'''
+		}
+
+		PotionBuffEnabledByDefault: {
+			Label: 研究后默认启用药水增益
+			Tooltip: 研究药水、食物或药剂瓶后，默认启用其增益。
+		}
+
+		# === AUTO-TRASH SETTINGS ===
+		AutoTrashResearched: {
+			Name: 自动丢弃已研究的拾取物品
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoTrashResearched.Name}"
+			Tooltip: 拾取已研究的物品时，会自动丢弃而不是放入物品栏。
+		}
+
+		AutoTrashAfterResearching: {
+			Label: "[i:{0}] 研究后自动丢弃物品"
+			Tooltip:
+				'''
+				与 [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoTrashResearched.Name}] 不同，
+				此选项会在物品完成研究后立即将其从物品栏中移除。
+				[c/{$Colors.Note}:清理设置决定影响哪些物品栏槽位。]
+				'''
+		}
+
+		# === BALANCE SETTINGS ===
+		IgnoreCraftingConditions: {
+			Name: 忽略部分制作条件
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreCraftingConditions.Name}"
+			Tooltip:
+				'''
+				自动研究可制作物品时，会忽略以下类型的制作条件：
+				附近液体、一天中的时间、特定事件或月相以及生物群落位置。
+				[c/{$Colors.Note}:需要特定世界种子或已击败特定 Boss 的条件仍然生效。]
+				[c/{$Colors.Warning}:其他模组添加的自定义条件不会被忽略。]
+				'''
+		}
+
+		BalanceShimmerAutoresearch: {
+			Name: 平衡微光自动研究
+			Label: "[i:{0}] {$Configs.HyperConfig.BalanceShimmerAutoresearch.Name}"
+			Tooltip:
+				'''
+				需要至少访问一次以太生物群落，才能启用
+				[c/{$Colors.Mention}:{$Configs.HyperConfig.AutoResearchShimmerItems.Name}] 和 [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoResearchDecraftItems.Name}]。
+				'''
+		}
+
+		BalancePrefixPicker: {
+			Name: 平衡修饰语选择器
+			Label: "[i:{0}] {$Configs.HyperConfig.BalancePrefixPicker.Name}"
+			Tooltip:
+				'''
+				需要至少击败一次哥布林军队事件，
+				才能在复制菜单中选择物品修饰语。
+				'''
+		}
+
+		OnlyOneItemNeeded: {
+			Label: "[i:{0}] 只需一个物品即可完成研究"
+			Tooltip: 使所有可研究物品只需一个即可完成研究。不可研究的物品不受影响。
+		}
+
+		ItemResearchCountOverride: {
+			Label: 覆盖研究所需数量
+			Tooltip:
+				'''
+				允许覆盖任何特定物品所需的研究数量，
+				[c/{$Colors.UsefulNote}:包括让不可研究的物品变为可研究，以及反之亦然。]
+				'''
+		}
+
+		# === TOOLTIPS SETTINGS ===
+		UseCustomResearchTooltip: {
+			Label: "[i:{0}] 使用自定义研究提示信息"
+			Tooltip: 在物品提示信息中显示扩展的研究信息和状态（包括模组物品槽位）。
+		}
+
+		ShowResearchedTooltip: {
+			Label: "[i:{0}] 显示 [c/FFE745:{$Tooltips.Researched}] 提示信息"
+			Tooltip: ""
+		}
+
+		ShowResearchBagTooltip: {
+			Label: 显示 [c/{$Colors.Game.JourneyMode}:按 <key> 研究所有战利品] 提示信息
+			Tooltip: ""
+		}
+
+		ShowBannerBuffTooltips: {
+			Label: 显示 [c/{$Colors.Game.RarityGreen}:按 <key> 启用]/[c/{$Colors.Game.RarityRed}:禁用旗帜增益] 提示信息
+			Tooltip: ""
+		}
+
+		ShowPotionBuffTooltips: {
+			Label: 显示 [c/{$Colors.Game.RarityGreen}:按 <key> 启用]/[c/{$Colors.Game.RarityRed}:禁用增益] 提示信息
+			Tooltip: ""
+		}
+
+		ShowSelectPrefixTooltip: {
+			Label: 显示 [c/{$Colors.Game.CoinSilver}:按 <key> 选择所需的修饰语] 提示信息
+			Tooltip: ""
+		}
+
+		# === RESEARCH SETTINGS ===
+		SacrificeHotbarSlots: {
+			Label: "[i:{0}] 研究操作包含快捷栏槽位"
+			Tooltip: 研究操作指 [c/{$Colors.Mention}:{$Keybinds.ResearchInventoryItems.DisplayName}] 快捷键或对应的界面按钮。
+		}
+
+		SacrificeCoinsSlots: {
+			Label: "[i:{0}] 研究操作包含钱币栏槽位"
+			Tooltip: "{$Configs.HyperConfig.SacrificeHotbarSlots.Tooltip}"
+		}
+
+		SacrificeAmmoSlots: {
+			Label: "[i:{0}] 研究操作包含弹药栏槽位"
+			Tooltip: "{$Configs.HyperConfig.SacrificeHotbarSlots.Tooltip}"
+		}
+
+		# === CLEAR SETTINGS ===
+		ClearHotbarSlots: {
+			Label: "[i:{0}] 清理操作包含快捷栏槽位"
+			Tooltip: 清理操作指 [c/{$Colors.Mention}:{$Keybinds.ClearResearchedItems.DisplayName}] 快捷键或对应的界面按钮。
+		}
+
+		ClearCoinsSlots: {
+			Label: "[i:{0}] 清理操作包含钱币栏槽位"
+			Tooltip: "{$Configs.HyperConfig.ClearHotbarSlots.Tooltip}"
+		}
+
+		ClearAmmoSlots: {
+			Label: "[i:{0}] 清理操作包含弹药栏槽位"
+			Tooltip: "{$Configs.HyperConfig.ClearHotbarSlots.Tooltip}"
+		}
+
+		# === CONSUMPTION SETTINGS ===
+		ConsumeResearchedAmmo: {
+			Label: "[i:{0}] 消耗已研究的弹药"
+			Tooltip: ""
+		}
+
+		ConsumeResearchedBaits: {
+			Label: "[i:{0}] 消耗已研究的鱼饵"
+			Tooltip: ""
+		}
+
+		ConsumeResearchedBlocks: {
+			Label: "[i:{0}] 消耗已研究的方块"
+			Tooltip: 如果禁用，已研究的方块、墙壁和家具在放置时不会被消耗。
+		}
+
+		ConsumeResearchedThrowingWeapons: {
+			Label: "[i:{0}] 消耗已研究的投掷武器"
+			Tooltip: ""
+		}
+
+		ConsumeResearchedPotions: {
+			Label: "[i:{0}] 消耗已研究的药水"
+			Tooltip:
+				'''
+				此类别仅包含 [i:{0}]增益、[i:{1}]治疗和 [i:{2}]魔力药水。
+				像 [i:{3}]回忆药水这样的药水不会变为无限。
+				'''
+		}
+
+		ConsumeResearchedLootItems: {
+			Label: "[i:{0}] 消耗已研究的战利品物品"
+			Tooltip: 如果禁用，已研究的战利品容器（如宝藏袋和板条箱）在打开时不会被消耗。
+		}
+
+		ConsumeOtherResearchedItems: {
+			Label: "[i:{0}] 消耗其他已研究物品"
+			Tooltip:
+				'''
+				如果禁用，不属于特定类别的其他消耗品（例如 Boss 召唤物）
+				在研究后使用时不会被消耗。
+				[c/{$Colors.Warning}:建议不要禁用此选项，以免出现意外的无限物品。]
+				'''
+		}
+
+		# === MESSAGES SETTINGS ===
+		ShowNewlyResearchedItems: {
+			Label: 显示新研究的物品
+			Tooltip:
+				'''
+				例如：
+				[c/{$Colors.Game.JourneyMode}:已研究 3 个新物品：] [i:1][i:2][i:3]
+				'''
+		}
+
+		ShowResearchedCraftableItems: {
+			Label: 显示研究的可制作物品
+			Tooltip:
+				'''
+				例如：
+				[c/FF9E70:已研究 3 个可制作物品：] [i:1][i:2][i:3]
+				'''
+		}
+
+		ShowResearchedShimmeredItems: {
+			Label: 显示研究的微光转化物品
+			Tooltip:
+				'''
+				例如：
+				[c/ED88D6:已研究 3 个微光转化物品：] [i:1][i:2][i:3]
+				'''
+		}
+
+		ShowResearchedDecraftItems: {
+			Label: 显示研究的微光分解物品
+			Tooltip:
+				'''
+				例如：
+				[c/FFBBDD:已研究 3 个微光分解物品：] [i:1][i:2][i:3]
+				'''
+		}
+
+		ShowSacrifices: {
+			Label: 显示献祭的物品
+			Tooltip:
+				'''
+				执行研究操作时
+				聊天中会显示哪些物品被献祭了
+
+				例如：
+				[c/F1A0BF:已献祭 2 个物品：] [i/s2:2][i/s99:3]
+				'''
+		}
+
+		# === MULTIPLAYER MESSAGES SETTGINGS ===
+		ShowSharedItems: {
+			Label: 显示共享的物品
+			Tooltip:
+				'''
+				当队友与你共享已完全研究的物品时，显示聊天消息。
+				[c/{$Colors.Condition}:需要启用 {$Configs.ServerConfig.DisplayName} 的] [c/{$Colors.Mention}:{$Configs.ServerConfig.SyncResearchedItemsInOneTeam.Label}] [c/{$Colors.Condition}:选项。]
+				例如：
+				[c/FFC0CB:PlayerName 分享了 3 个物品：] [i:1][i:2][i:3]
+				'''
+		}
+
+		ShowSharedSacrifices: {
+			Label: 显示共享的献祭物品
+			Tooltip:
+				'''
+				当队友与你共享献祭的物品时，显示聊天消息。
+				[c/{$Colors.Condition}:需要启用 {$Configs.ServerConfig.DisplayName} 的] [c/{$Colors.Mention}:{$Configs.ServerConfig.SyncSacrificesInOneTeam.Label}] [c/{$Colors.Condition}:选项。]
+				例如：
+				[c/FFC0CB:PlayerName 分享了 2 个献祭物品：] [i/s2:2][i/s99:3]
+				'''
+		}
+
+		ShowOtherPlayersResearchedItems: {
+			Label: 显示队友研究新物品的消息
+			Tooltip:
+				'''
+				当队友研究物品时显示聊天消息，即使你已经研究过它们。
+				例如：
+				[c/FFC0CB:PlayerName 研究了 3 个新物品：] [i:1][i:2][i:3]
+				'''
+		}
+
+		# === UI SETTINGS ===
+		VisualizeBuffStatus: {
+			Label: 可视化旗帜/增益状态
+			Tooltip: 根据增益是否启用，为复制菜单中的增益物品槽位着色。
+		}
+
+		ShowResearchInventoryButton: {
+			Label: 显示 "{$UI.InventoryButtons.ResearchButtonHoverText}" 按钮
+			Tooltip: ""
+		}
+
+		ShowClearInventoryButton: {
+			Label: 显示 "{$UI.InventoryButtons.ClearButtonHoverText}" 按钮
+			Tooltip: ""
+		}
+
+		ShowAutoCraftButton: {
+			Label: 显示 "{$UI.InventoryButtons.AutoCraftHoverText}" 按钮
+			Tooltip: ""
+		}
+
+		ShowShimmerButton: {
+			Label: 显示 "{$UI.InventoryButtons.ShimmerButtonHoverText}" 按钮
+			Tooltip: "[c/{$Colors.Condition}:如果启用] [c/{$Colors.Mention}:{$Configs.HyperConfig.BalanceShimmerAutoresearch.Name}] [c/{$Colors.Condition}:且尚未访问以太生物群落，则禁用。]"
+		}
+
+		ShowShimmerDecraftButton: {
+			Label: 显示 "{$UI.InventoryButtons.ShimmerDecraftButtonHoverText}" 按钮
+			Tooltip: "{$Configs.HyperConfig.ShowShimmerButton.Tooltip}"
+		}
+
+		ShowTeamShareButton: {
+			Label: 显示 "{$UI.InventoryButtons.ShareButtonHoverText}" 按钮
+			Tooltip:
+				'''
+				[c/{$Colors.Note}:仅在多人模式下显示。]
+				[c/{$Colors.Condition}:如果未加入队伍，或队伍中只有一名成员，则禁用。]
+				'''
+		}
+
+		InventoryButtonsSlotOffset: {
+			Label: 物品栏按钮槽位偏移
+			Tooltip:
+				'''
+				调整物品栏界面按钮的水平位置，
+				取决于第一个按钮从哪个槽位开始绘制。
+				'''
+		}
+
+		ShowResearchShopButton: {
+			Label: 在商店菜单中显示 "{$UI.ShopButtons.ResearchButtonHoverText}" 按钮
+			Tooltip: ""
+		}
+
+		ShowTotalResearchedItemsCount: {
+			Label: 显示已研究物品总数
+			Tooltip:
+				'''
+				在复制菜单下方显示已研究的可研究物品
+				总数和百分比。
+				'''
+		}
+
+		PinyinSearch: {
+			Label: 复制菜单中的拼音搜索
+			Tooltip:
+				'''
+				为旅行模式复制菜单的搜索添加拼音匹配。
+				全拼（"tukuai"）、首字母（"tk"）、子串（"uk"）以及中英混合查询（"土k"）均可使用。
+				匹配物品名称和描述。仅对名称包含中文字符的物品生效。
+				'''
+		}
+	}
+
+	ServerConfig: {
+		Messages.OnlyHost: 仅主机可以更改
+		DisplayName: 服务器配置
+
+		SyncResearchedItemsInOneTeam: {
+			Label: 与队伍共享已研究的物品
+			Tooltip: 在同一队伍的所有成员之间同步已完全研究的物品。
+		}
+
+		SyncSacrificesInOneTeam: {
+			Label: 与队伍共享献祭的物品
+			Tooltip: 在同一队伍的所有成员之间同步已献祭的物品。
+		}
+
+		Headers.HostSettings: 主机设置
+
+		UseServerSettings: {
+			Label: 使用全局服务器设置
+			Tooltip:
+				'''
+				强制服务器上的所有玩家使用主机在下方配置的 HyperResearch Continued 设置，
+				覆盖其本地客户端配置。
+				'''
+		}
+	}
+}
+
+Keybinds: {
+	ForgetAll.DisplayName: 全部遗忘
+	ResearchAll.DisplayName: 研究全部
+	ForgetAether.DisplayName: 遗忘以太
+	ResearchInventoryItems.DisplayName: 研究物品栏物品
+	ClearResearchedItems.DisplayName: 清理已研究物品
+	ResearchCraftableItems.DisplayName: 研究可制作物品
+	ResearchShimmerItems.DisplayName: 研究微光物品
+	ResearchDecraftItems.DisplayName: 研究微光分解物品
+	ShareAllResearched.DisplayName: 与队伍共享物品
+	ResearchBagContents.DisplayName: 研究袋子/板条箱内容
+	ResearchShop.DisplayName: 研究商店
+	EnableDisableBuff.DisplayName: 切换增益
+	MaxStack.DisplayName: 已研究物品最大堆叠
+}
