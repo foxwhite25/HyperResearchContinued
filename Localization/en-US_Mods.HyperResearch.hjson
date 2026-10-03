@@ -513,7 +513,7 @@ Configs: {
 			Label: Use global server settings
 			Tooltip:
 				'''
-				Forces all players on the server to use the host's Hyper Research settings configured below, 
+				Forces all players on the server to use the host's HyperResearch Continued settings configured below, 
 				overriding their local client configurations.
 				'''
 		}

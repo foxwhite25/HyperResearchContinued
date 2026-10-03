@@ -1,4 +1,4 @@
-Hyper Research enhances Terraria's Journey mode with quality-of-life features.
+HyperResearch Continued enhances Terraria's Journey mode with quality-of-life features.
 The mod gives you a lot of settings in the config, so take a look there and customize the mod for yourself.
 
 Core Gameplay Enhancements:

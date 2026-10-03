@@ -1,4 +1,4 @@
-Hyper Research v{ModVersion} has been published to {tMLBuildPurpose} tML v{tMLVersion}.
+HyperResearch Continued v{ModVersion} has been published to {tMLBuildPurpose} tML v{tMLVersion}.
 
 [h1]Fixes[/h1]
 [list]

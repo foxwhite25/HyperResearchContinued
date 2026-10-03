@@ -1,4 +1,4 @@
-displayName = Hyper Research
+displayName = HyperResearch Continued
 author = Non Ame
 version = 1.1.0.3
 dllReferences = ToolGood.Words.Pinyin
