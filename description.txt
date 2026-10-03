@@ -1,4 +1,6 @@
 HyperResearch Continued enhances Terraria's Journey mode with quality-of-life features.
+This is a continuation of the original Hyper Research mod: the original author seems to have left the internet about a year ago and given up on the project, so this version keeps it alive and updated.
+Have an idea for a feature related to research? Leave a comment and I will implement it.
 The mod gives you a lot of settings in the config, so take a look there and customize the mod for yourself.
 
 Core Gameplay Enhancements:
