@@ -1,4 +1,4 @@
 displayName = HyperResearch Continued
-author = Non Ame
+author = foxwhite25
 version = 1.1.0.3
 dllReferences = ToolGood.Words.Pinyin
