@@ -13,6 +13,7 @@ Core Gameplay Enhancements:
 
 Additional Quality of Life:
 - Modifier Selector: Choose item modifiers directly within the duplication menu.
+- Pinyin Search: Find items in the duplication menu by pinyin – full, initials, substrings, or mixed Chinese/pinyin (powered by ToolGood.Words.Pinyin).
 - Shop Auto-Research: Automatically research the contents of NPC shops.
 - One-Tap Loot Research: Research the entire contents of bags, crates, and other loot containers instantly.
 - Infinite Consumables: Infinite stacks of researched consumables like potions, blocks, throwing weapons, and more (configurable categories).

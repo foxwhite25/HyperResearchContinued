@@ -13,6 +13,12 @@
         <None Remove="Content\**"/>
     </ItemGroup>
     <ItemGroup>
+        <Reference Include="ToolGood.Words.Pinyin">
+            <HintPath>lib\ToolGood.Words.Pinyin.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
         <None Remove="Assets\Images\UI\AutoCraftButton.png"/>
         <None Remove="Assets\Images\UI\ClearButton.png"/>
         <None Remove="Assets\Images\UI\ResearchButton.png"/>

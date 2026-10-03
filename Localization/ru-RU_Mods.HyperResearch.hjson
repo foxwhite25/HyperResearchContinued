@@ -492,6 +492,16 @@ Configs: {
 			Label: Показывать общее количество изученных предметов
 			Tooltip: Отображает общее количество и процент изученных предметов под меню дупликации.
 		}
+
+		PinyinSearch: {
+			// Label: Pinyin search in the duplication menu
+			/* Tooltip:
+				'''
+				Adds pinyin matching to the Journey Mode duplication menu search.
+				Full pinyin ("tukuai"), initials ("tk"), substrings ("uk") and mixed Chinese/pinyin queries ("土k") all work.
+				Matches item names and descriptions. Only items whose names contain Chinese characters are affected.
+				''' */
+		}
 	}
 
 	ServerConfig: {

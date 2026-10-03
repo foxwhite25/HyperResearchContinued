@@ -239,6 +239,9 @@ public class HyperConfig : ModConfig
 
     [DefaultValue(true)]
     public bool ShowTotalResearchedItemsCount;
+
+    [DefaultValue(true)]
+    public bool PinyinSearch;
         
 
     public static HyperConfig Instance { get; private set; } = null!;

@@ -18,6 +18,7 @@ The mod gives you a lot of settings in the config, so take a look there and cust
 [h2]Additional Quality of Life[/h2]
 [list]
 [*][b]Modifier Selector:[/b] Choose item modifiers directly within the duplication menu.
+[*][b]Pinyin Search:[/b] Find items in the duplication menu by pinyin – full, initials, substrings, or mixed Chinese/pinyin (powered by ToolGood.Words.Pinyin).
 [*][b]Shop Auto-Research:[/b] Automatically research the contents of NPC shops.
 [*][b]One-Tap Loot Research:[/b] Research the entire contents of bags, crates, and other loot containers instantly.
 [*][b]Infinite Consumables:[/b] Infinite stacks of researched consumables like potions, blocks, throwing weapons, and more (configurable categories).
