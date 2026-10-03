@@ -43,6 +43,45 @@ public static class ItemsUtils
         };
     }
 
+    /// <summary>
+    ///     Returns all items purchasable from the shops of the NPCs present in the world.
+    ///     Includes every shop entry whose conditions are met, ignoring time of day, moon phase and location
+    ///     conditions, so shops that only stock a subset of their catalog (like the Traveling Merchant)
+    ///     are covered as well
+    /// </summary>
+    public static IEnumerable<Item> GetPresentNPCShopItems()
+    {
+        HashSet<int> shopNpcTypes = [.. NPCShopDatabase.AllShops.Select(shop => shop.NpcType)];
+        HashSet<int> processedNpcTypes = [];
+        foreach (NPC npc in Main.npc)
+        {
+            if (!npc.active || !shopNpcTypes.Contains(npc.type) || !processedNpcTypes.Add(npc.type))
+                continue;
+
+            foreach (AbstractNPCShop shop in NPCShopDatabase.AllShops)
+            {
+                if (shop.NpcType != npc.type) continue;
+
+                List<Item> shopItems = [];
+                shop.FillShop(shopItems, npc);
+                foreach (Item item in shopItems)
+                    if (!item.IsAir)
+                        yield return item;
+
+                foreach (AbstractNPCShop.Entry entry in shop.ActiveEntries)
+                {
+                    if (entry.Item.IsAir || !entry.Conditions.All(Researcher.IsConditionMetForShop))
+                        continue;
+
+                    Item item = entry.Item.Clone();
+                    if (entry is NPCShop.Entry npcShopEntry)
+                        npcShopEntry.OnShopOpen(item, npc);
+                    yield return item;
+                }
+            }
+        }
+    }
+
     public static IEnumerable<int> GetItemLoot(int itemId)
     {
         List<IItemDropRule> itemDropRules = Main.ItemDropsDB.GetRulesForItemID(itemId);

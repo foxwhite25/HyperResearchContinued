@@ -29,18 +29,15 @@ public enum SacrificeSource
 /// <summary>Utility class that contains all the methods related to the research and sacrification of items</summary>
 public class Researcher
 {
-    #region IgnoringCraftConditions
+    #region IgnoredConditions
 
-    private static readonly List<Condition> IgnoringCraftConditions =
+    private static readonly List<Condition> IgnoringLocationConditions =
     [
         // Liquids
         Condition.NearWater,
         Condition.NearLava,
         Condition.NearHoney,
         Condition.NearShimmer,
-        // Time
-        Condition.TimeDay,
-        Condition.TimeNight,
         // Biomes
         Condition.InDungeon,
         Condition.InCorrupt,
@@ -79,7 +76,17 @@ public class Researcher
         Condition.NotInEvilBiome,
         Condition.NotInHallow,
         Condition.NotInGraveyard,
-        Condition.NotInUnderworld,
+        Condition.NotInUnderworld
+    ];
+
+    private static readonly List<Condition> IgnoringTimeConditions =
+    [
+        Condition.TimeDay,
+        Condition.TimeNight
+    ];
+
+    private static readonly List<Condition> IgnoringEventConditions =
+    [
         // Events
         Condition.Thunderstorm,
         Condition.HappyWindyDay,
@@ -99,8 +106,11 @@ public class Researcher
         // Not events
         Condition.NotBloodMoon,
         Condition.NotEclipse,
-        Condition.NotEclipseAndNotBloodMoon,
-        // Moon phases
+        Condition.NotEclipseAndNotBloodMoon
+    ];
+
+    private static readonly List<Condition> IgnoringMoonPhaseConditions =
+    [
         Condition.MoonPhaseFull,
         Condition.MoonPhaseWaningGibbous,
         Condition.MoonPhaseThirdQuarter,
@@ -126,7 +136,22 @@ public class Researcher
         Condition.MoonPhases37
     ];
 
+    private static readonly List<Condition> IgnoringConditions =
+    [
+        .. IgnoringLocationConditions,
+        .. IgnoringTimeConditions,
+        .. IgnoringEventConditions,
+        .. IgnoringMoonPhaseConditions
+    ];
+
     #endregion
+
+    /// <summary>
+    ///     Whether the <paramref name="condition" /> is met for the purpose of researching NPC shop items.
+    ///     Location, time of day, weather, event and moon phase conditions are ignored
+    /// </summary>
+    public static bool IsConditionMetForShop(Condition condition) =>
+        IgnoringConditions.Contains(condition) || condition.IsMet();
 
     private static readonly int ResearchedItemGroups = Enum.GetValues(typeof(ResearchSource)).Length;
     private static readonly int SacrificeGroups = Enum.GetValues(typeof(SacrificeSource)).Length;
@@ -365,7 +390,7 @@ public class Researcher
         if (!allTilesResearched) return false;
 
         bool allConditionsAreMet = recipe.Conditions.All(condition =>
-            (ConfigOptions.IgnoreCraftingConditions && IgnoringCraftConditions.Contains(condition)) || condition.IsMet()
+            (ConfigOptions.IgnoreCraftingConditions && IgnoringConditions.Contains(condition)) || condition.IsMet()
         );
         return allConditionsAreMet;
     }

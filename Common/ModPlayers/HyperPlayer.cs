@@ -63,6 +63,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     }
 
     public bool AutoResearchCraftable => HyperConfig.Instance.AutoResearchCraftableItems;
+    public bool AutoResearchShop => HyperConfig.Instance.AutoResearchShop;
     public bool CanShimmerResearch => !ConfigOptions.BalanceShimmerAutoresearch || WasInAether;
     public bool AutoResearchShimmer => HyperConfig.Instance.AutoResearchShimmerItems && CanShimmerResearch;
     public bool AutoResearchDecraft => HyperConfig.Instance.AutoResearchDecraftItems && CanShimmerResearch;
@@ -444,20 +445,23 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     /// <param name="shop">Array of shop items</param>
     public void ResearchShop(Item[] shop)
     {
-        List<int> toResearch = [..
-            from item in shop
-            where item is { IsAir: false }
-                  && (item.shopSpecialCurrency == -1 || item.shopCustomPrice is not null)
-            let currencyValues = ItemsUtils.GetCurrencyItemsAndValues(item.shopSpecialCurrency)
-            where currencyValues is not null && currencyValues.Keys.Any(Researcher.IsResearched)
-            select item.type
-        ];
-
         Researcher researcher = new();
-        researcher.ResearchItems(toResearch);
+        researcher.ResearchItems(GetResearchableShopItemIds(shop));
         researcher.ProcessResearched(this);
         AfterLocalResearch(researcher);
     }
+
+    /// <summary>
+    ///     Filters <paramref name="shopItems" /> to those that can be researched.
+    ///     Items are skipped if the currency for which they are sold has not been researched yet
+    /// </summary>
+    private static IEnumerable<int> GetResearchableShopItemIds(IEnumerable<Item> shopItems) =>
+        from item in shopItems
+        where item is { IsAir: false }
+              && (item.shopSpecialCurrency == -1 || item.shopCustomPrice is not null)
+        let currencyValues = ItemsUtils.GetCurrencyItemsAndValues(item.shopSpecialCurrency)
+        where currencyValues is not null && currencyValues.Keys.Any(Researcher.IsResearched)
+        select item.type;
 
     public void OnClientConfigChanged()
     {
@@ -493,6 +497,8 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     {
         Researcher researcher = new();
         researcher.ResearchCraftable();
+        if (AutoResearchShop)
+            researcher.ResearchItems(GetResearchableShopItemIds(ItemsUtils.GetPresentNPCShopItems()));
         researcher.ProcessResearched(true, AutoResearchShimmer, AutoResearchDecraft);
         AfterLocalResearch(researcher);
     }
