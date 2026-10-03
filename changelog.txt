@@ -1,6 +1,13 @@
 HyperResearch Continued v{ModVersion} has been published to {tMLBuildPurpose} tML v{tMLVersion}.
 
-[h1]Fixes[/h1]
+[h1]Additions[/h1]
 [list]
-[*] Added a check if an item can be transmuted in the current game progress
+[*] Auto-research of all items sold by the NPCs currently present in the world. Shop conditions such as time of day, weather, events, moon phases and biome location are ignored, and limited-stock shops like the Traveling Merchant are fully covered.
+[*] Pinyin search in the duplication menu: full pinyin ("tukuai"), initials ("tk"), substrings ("uk") and mixed Chinese/pinyin queries ("土k"). Matches item names and descriptions.
+[*] Simplified Chinese localization.
+[/list]
+
+[h1]Changes[/h1]
+[list]
+[*] Mod renamed to "HyperResearch Continued".
 [/list]
