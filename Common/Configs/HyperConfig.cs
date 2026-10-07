@@ -78,19 +78,19 @@ public class HyperConfig : ModConfig
     [Header("BalanceSettingsHeader")]
 
     [LabelArgs(ItemID.BottledWater)]
-    [DefaultValue(true)]
+    [DefaultValue(false)]
     public bool IgnoreLocationConditions;
 
     [LabelArgs(ItemID.Sundial)]
-    [DefaultValue(true)]
+    [DefaultValue(false)]
     public bool IgnoreTimeConditions;
 
     [LabelArgs(ItemID.WeatherRadio)]
-    [DefaultValue(true)]
+    [DefaultValue(false)]
     public bool IgnoreEventConditions;
 
     [LabelArgs(ItemID.MoonCharm)]
-    [DefaultValue(true)]
+    [DefaultValue(false)]
     public bool IgnoreMoonPhaseConditions;
 
     [LabelArgs(ItemID.BottomlessShimmerBucket)]
