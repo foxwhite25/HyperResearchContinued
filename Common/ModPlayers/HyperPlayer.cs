@@ -63,7 +63,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     }
 
     public bool AutoResearchCraftable => HyperConfig.Instance.AutoResearchCraftableItems;
-    public bool AutoResearchShop => HyperConfig.Instance.AutoResearchShop;
+    public bool AutoResearchPresentNPCShops => HyperConfig.Instance.AutoResearchPresentNPCShops;
     public bool CanShimmerResearch => !ConfigOptions.BalanceShimmerAutoresearch || WasInAether;
     public bool AutoResearchShimmer => HyperConfig.Instance.AutoResearchShimmerItems && CanShimmerResearch;
     public bool AutoResearchDecraft => HyperConfig.Instance.AutoResearchDecraftItems && CanShimmerResearch;
@@ -497,7 +497,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     {
         Researcher researcher = new();
         researcher.ResearchCraftable();
-        if (AutoResearchShop)
+        if (AutoResearchPresentNPCShops)
             researcher.ResearchItems(GetResearchableShopItemIds(ItemsUtils.GetPresentNPCShopItems()));
         researcher.ProcessResearched(true, AutoResearchShimmer, AutoResearchDecraft);
         AfterLocalResearch(researcher);

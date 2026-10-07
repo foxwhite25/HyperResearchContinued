@@ -103,7 +103,7 @@ Configs: {
 			Tooltip:
 				'''
 				После изучения нового предмета, все новые предметы, которые возможно создать из уже изученных материалов, изучаются.
-				[c/{$Colors.Condition}:Для этого требуется изучить необходимые станции создания и выполнить условия создания] [c/{$Colors.Mention}:(см. "{$Configs.HyperConfig.IgnoreCraftingConditions.Name}").]
+				[c/{$Colors.Condition}:Для этого требуется изучить необходимые станции создания и выполнить условия создания] [c/{$Colors.Mention}:(какие типы условий игнорировать, настраивается в конфиге).]
 				[c/{$Colors.Note}:Альтернативно, вы можете назначить горячую клавишу или использовать кнопку под инвентарем]
 				'''
 		}
@@ -137,6 +137,28 @@ Configs: {
 				При открытии магазина изучается все, что NPC в данный момент продает.
 				[c/{$Colors.Condition}:Чтобы изучить некоторые предметы, необходимо изучить соответствующую валюту (например, ][i:{0}][c/{$Colors.Condition}:Медали защитника).]
 				[c/{$Colors.Note}:Альтернативно, вы можете назначить горячую клавишу или использовать кнопку под интерфейсом магазина]
+				'''
+		}
+
+		AutoResearchPresentNPCShops: {
+			Name: Изучать магазины присутствующих NPC при изучении создаваемых предметов
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name}"
+			Tooltip:
+				'''
+				При использовании действия [c/{$Colors.Mention}:{$Keybinds.ResearchCraftableItems.DisplayName}]
+				также изучаются все предметы, продаваемые NPC, присутствующими в мире.
+				[c/{$Colors.Note}:Изучение полного ассортимента Странствующего торговца настраивается отдельно: {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}.]
+				'''
+		}
+
+		AutoResearchTravelingMerchantStock: {
+			Name: Изучать весь ассортимент Странствующего торговца
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}"
+			Tooltip:
+				'''
+				При изучении магазинов присутствующих NPC включает все предметы, которые может продавать Странствующий торговец,
+				а не только товары из текущего визита.
+				[c/{$Colors.Note}:Требуется включенная настройка {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name}.]
 				'''
 		}
 
@@ -188,16 +210,33 @@ Configs: {
 		}
 
 		# === BALANCE SETTINGS ===
-		IgnoreCraftingConditions: {
-			Name: Игнорировать некоторые условия создания
-			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreCraftingConditions.Name}"
+		IgnoreLocationConditions: {
+			Name: Игнорировать условия местоположения
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreLocationConditions.Name}"
 			Tooltip:
 				'''
-				Для автосоздания предметов следующие типы условий будут игнорироваться: условия нахождения рядом с жидкостями,
-				условия времени, условия событий и стадий лун и условия нахождения в биоме.
-				[c/{$Colors.Note}:Это означает, что условия сида мира или убийств боссов не будут проигнорированы.]
-				[c/{$Colors.Warning}:Все условия, которые добавляют моды, не будут проигнорированы.]
+				Игнорировать условия биома, высоты и близости к жидкостям при автоизучении создаваемых предметов и товаров NPC.
+				[c/{$Colors.Note}:Условия, требующие определенного сида мира или победы над боссами, всё ещё действуют.]
+				[c/{$Colors.Warning}:Пользовательские условия из других модов не игнорируются.]
 				'''
+		}
+
+		IgnoreTimeConditions: {
+			Name: Игнорировать условия времени суток
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreTimeConditions.Name}"
+			Tooltip: Игнорировать условия дня и ночи при автоизучении создаваемых предметов и товаров NPC.
+		}
+
+		IgnoreEventConditions: {
+			Name: Игнорировать условия событий
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreEventConditions.Name}"
+			Tooltip: Игнорировать условия погоды и событий (дождь, кровавая луна, вечеринка и т. д.) при автоизучении создаваемых предметов и товаров NPC.
+		}
+
+		IgnoreMoonPhaseConditions: {
+			Name: Игнорировать условия фазы луны
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreMoonPhaseConditions.Name}"
+			Tooltip: Игнорировать условия фазы луны при автоизучении создаваемых предметов и товаров NPC.
 		}
 
 		BalanceShimmerAutoresearch: {

@@ -38,6 +38,14 @@ public class HyperConfig : ModConfig
     [DefaultValue(true)]
     public bool AutoResearchShop;
 
+    [LabelArgs(ItemID.GoldCoin)]
+    [DefaultValue(true)]
+    public bool AutoResearchPresentNPCShops;
+
+    [LabelArgs(ItemID.PeddlersHat)]
+    [DefaultValue(true)]
+    public bool AutoResearchTravelingMerchantStock;
+
 
     [Header("BuffsSettingsHeader")]
 
@@ -71,7 +79,19 @@ public class HyperConfig : ModConfig
 
     [LabelArgs(ItemID.BottledWater)]
     [DefaultValue(true)]
-    public bool IgnoreCraftingConditions;
+    public bool IgnoreLocationConditions;
+
+    [LabelArgs(ItemID.Sundial)]
+    [DefaultValue(true)]
+    public bool IgnoreTimeConditions;
+
+    [LabelArgs(ItemID.WeatherRadio)]
+    [DefaultValue(true)]
+    public bool IgnoreEventConditions;
+
+    [LabelArgs(ItemID.MoonCharm)]
+    [DefaultValue(true)]
+    public bool IgnoreMoonPhaseConditions;
 
     [LabelArgs(ItemID.BottomlessShimmerBucket)]
     [DefaultValue(true)]

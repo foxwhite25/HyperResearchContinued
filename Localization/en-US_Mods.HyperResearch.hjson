@@ -98,7 +98,7 @@ Configs: {
 			Tooltip:
 				'''
 				After researching an item, automatically researches any new items that become craftable using already researched materials.
-				[c/{$Colors.Condition}:Requires researched crafting stations and material conditions to be met] [c/{$Colors.Mention}:(check "{$Configs.HyperConfig.IgnoreCraftingConditions.Name}" option).]
+				[c/{$Colors.Condition}:Requires researched crafting stations and material conditions to be met] [c/{$Colors.Mention}:(the condition types to ignore can be adjusted in the config).]
 				[c/{$Colors.Note}:Alternatively, assign a keybind or use the UI button below the inventory to research craftable items.]
 				'''
 		}
@@ -132,6 +132,29 @@ Configs: {
 				When opening a shop, researches everything the NPC is currently selling.
 				[c/{$Colors.Condition}:Requires the corresponding currency to be researched first (e.g., ][i:{0}][c/{$Colors.Condition}:Defender Medals).]
 				[c/{$Colors.Note}:Alternatively, assign a keybind or use the UI button below the shop interface to research its contents.]
+				'''
+		}
+
+		AutoResearchPresentNPCShops: {
+			Name: Research the shops of present NPCs with the craftable action
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name}"
+			Tooltip:
+				'''
+				When using the [c/{$Colors.Mention}:{$Keybinds.ResearchCraftableItems.DisplayName}] action,
+				also researches every item sold by the NPCs currently present in the world.
+				[c/{$Colors.Note}:Whether the Traveling Merchant's whole catalog is researched is controlled by
+				{$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}.]
+				'''
+		}
+
+		AutoResearchTravelingMerchantStock: {
+			Name: Research the Traveling Merchant's full stock
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}"
+			Tooltip:
+				'''
+				Includes every item the Traveling Merchant can sell when researching the shops of present NPCs,
+				instead of only the items in his current stock.
+				[c/{$Colors.Note}:Requires {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name} to be enabled.]
 				'''
 		}
 
@@ -183,16 +206,33 @@ Configs: {
 		}
 
 		# === BALANCE SETTINGS ===
-		IgnoreCraftingConditions: {
-			Name: Ignore some crafting conditions
-			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreCraftingConditions.Name}"
+		IgnoreLocationConditions: {
+			Name: Ignore biome and location conditions
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreLocationConditions.Name}"
 			Tooltip:
 				'''
-				For auto-researching craftable items, the following types of crafting conditions are ignored: 
-				proximity to liquids, time of day, specific events or moon phases, and biome location.
+				Ignore biome, height and liquid proximity conditions when auto-researching craftable items and NPC shops.
 				[c/{$Colors.Note}:Conditions requiring specific world seeds or defeated bosses are still enforced.]
 				[c/{$Colors.Warning}:Custom conditions added by other mods are not ignored.]
 				'''
+		}
+
+		IgnoreTimeConditions: {
+			Name: Ignore time of day conditions
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreTimeConditions.Name}"
+			Tooltip: Ignore day and night conditions when auto-researching craftable items and NPC shops.
+		}
+
+		IgnoreEventConditions: {
+			Name: Ignore event conditions
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreEventConditions.Name}"
+			Tooltip: Ignore weather, event and holiday conditions (rain, blood moon, party, etc.) when auto-researching craftable items and NPC shops.
+		}
+
+		IgnoreMoonPhaseConditions: {
+			Name: Ignore moon phase conditions
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreMoonPhaseConditions.Name}"
+			Tooltip: Ignore moon phase conditions when auto-researching craftable items and NPC shops.
 		}
 
 		BalanceShimmerAutoresearch: {

@@ -98,7 +98,7 @@ Configs: {
 			Tooltip:
 				'''
 				研究物品后，会自动研究所有可用已研究材料制作的新物品。
-				[c/{$Colors.Condition}:需要满足已研究的制作站和材料条件] [c/{$Colors.Mention}:（勾选 "{$Configs.HyperConfig.IgnoreCraftingConditions.Name}" 选项）。]
+				[c/{$Colors.Condition}:需要满足已研究的制作站和材料条件] [c/{$Colors.Mention}:（可在配置中调整要忽略的条件类型）。]
 				[c/{$Colors.Note}:或者指定快捷键，或使用物品栏下方的界面按钮来研究可制作物品。]
 				'''
 		}
@@ -132,6 +132,28 @@ Configs: {
 				打开商店时，研究该 NPC 当前出售的所有物品。
 				[c/{$Colors.Condition}:需要先研究对应的货币（例如 ][i:{0}][c/{$Colors.Condition}:护卫奖章）。]
 				[c/{$Colors.Note}:或者指定快捷键，或使用商店界面下方的界面按钮来研究商店内容。]
+				'''
+		}
+
+		AutoResearchPresentNPCShops: {
+			Name: 使用制作研究操作时研究现存 NPC 的商店
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name}"
+			Tooltip:
+				'''
+				使用 [c/{$Colors.Mention}:{$Keybinds.ResearchCraftableItems.DisplayName}] 操作时，
+				还会研究世界中现存 NPC 出售的所有物品。
+				[c/{$Colors.Note}:旅商是否研究全部商品由 {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name} 单独控制。]
+				'''
+		}
+
+		AutoResearchTravelingMerchantStock: {
+			Name: 研究旅商的全部商品
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}"
+			Tooltip:
+				'''
+				研究现存 NPC 的商店时，包含旅商可能出售的所有物品，
+				而不仅仅是当前到访时出售的商品。
+				[c/{$Colors.Note}:需要启用 {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name}。]
 				'''
 		}
 
@@ -183,16 +205,33 @@ Configs: {
 		}
 
 		# === BALANCE SETTINGS ===
-		IgnoreCraftingConditions: {
-			Name: 忽略部分制作条件
-			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreCraftingConditions.Name}"
+		IgnoreLocationConditions: {
+			Name: 忽略生物群落与位置条件
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreLocationConditions.Name}"
 			Tooltip:
 				'''
-				自动研究可制作物品时，会忽略以下类型的制作条件：
-				附近液体、一天中的时间、特定事件或月相以及生物群落位置。
+				自动研究可制作物品和 NPC 商店物品时，忽略生物群落、高度和附近液体条件。
 				[c/{$Colors.Note}:需要特定世界种子或已击败特定 Boss 的条件仍然生效。]
 				[c/{$Colors.Warning}:其他模组添加的自定义条件不会被忽略。]
 				'''
+		}
+
+		IgnoreTimeConditions: {
+			Name: 忽略时间条件
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreTimeConditions.Name}"
+			Tooltip: 自动研究可制作物品和 NPC 商店物品时，忽略白天与夜晚条件。
+		}
+
+		IgnoreEventConditions: {
+			Name: 忽略事件条件
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreEventConditions.Name}"
+			Tooltip: 自动研究可制作物品和 NPC 商店物品时，忽略天气、事件和节日条件（下雨、血月、派对等）。
+		}
+
+		IgnoreMoonPhaseConditions: {
+			Name: 忽略月相条件
+			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreMoonPhaseConditions.Name}"
+			Tooltip: 自动研究可制作物品和 NPC 商店物品时，忽略月相条件。
 		}
 
 		BalanceShimmerAutoresearch: {

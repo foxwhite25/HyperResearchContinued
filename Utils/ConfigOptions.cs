@@ -11,9 +11,21 @@ public static class ConfigOptions
     private static bool UseServerSettings =>
         Main.netMode == NetmodeID.MultiplayerClient && ServerConfig.Instance.UseServerSettings;
 
-    public static bool IgnoreCraftingConditions => UseServerSettings
-        ? ServerConfig.Instance.IgnoreCraftingConditions
-        : HyperConfig.Instance.IgnoreCraftingConditions;
+    public static bool IgnoreLocationConditions => UseServerSettings
+        ? ServerConfig.Instance.IgnoreLocationConditions
+        : HyperConfig.Instance.IgnoreLocationConditions;
+
+    public static bool IgnoreTimeConditions => UseServerSettings
+        ? ServerConfig.Instance.IgnoreTimeConditions
+        : HyperConfig.Instance.IgnoreTimeConditions;
+
+    public static bool IgnoreEventConditions => UseServerSettings
+        ? ServerConfig.Instance.IgnoreEventConditions
+        : HyperConfig.Instance.IgnoreEventConditions;
+
+    public static bool IgnoreMoonPhaseConditions => UseServerSettings
+        ? ServerConfig.Instance.IgnoreMoonPhaseConditions
+        : HyperConfig.Instance.IgnoreMoonPhaseConditions;
 
     public static bool BalanceShimmerAutoresearch => UseServerSettings
         ? ServerConfig.Instance.BalanceShimmerAutoresearch

@@ -136,22 +136,25 @@ public class Researcher
         Condition.MoonPhases37
     ];
 
-    private static readonly List<Condition> IgnoringConditions =
-    [
-        .. IgnoringLocationConditions,
-        .. IgnoringTimeConditions,
-        .. IgnoringEventConditions,
-        .. IgnoringMoonPhaseConditions
-    ];
-
     #endregion
 
     /// <summary>
+    ///     Whether <paramref name="condition" /> should be ignored based on the enabled
+    ///     <see cref="HyperConfig" /> condition options.
+    /// </summary>
+    public static bool ShouldIgnoreCondition(Condition condition) =>
+        (ConfigOptions.IgnoreLocationConditions && IgnoringLocationConditions.Contains(condition))
+        || (ConfigOptions.IgnoreTimeConditions && IgnoringTimeConditions.Contains(condition))
+        || (ConfigOptions.IgnoreEventConditions && IgnoringEventConditions.Contains(condition))
+        || (ConfigOptions.IgnoreMoonPhaseConditions && IgnoringMoonPhaseConditions.Contains(condition));
+
+    /// <summary>
     ///     Whether the <paramref name="condition" /> is met for the purpose of researching NPC shop items.
-    ///     Location, time of day, weather, event and moon phase conditions are ignored
+    ///     Location, time of day, weather, event and moon phase conditions can be ignored with the
+    ///     corresponding config options
     /// </summary>
     public static bool IsConditionMetForShop(Condition condition) =>
-        IgnoringConditions.Contains(condition) || condition.IsMet();
+        ShouldIgnoreCondition(condition) || condition.IsMet();
 
     private static readonly int ResearchedItemGroups = Enum.GetValues(typeof(ResearchSource)).Length;
     private static readonly int SacrificeGroups = Enum.GetValues(typeof(SacrificeSource)).Length;
@@ -390,7 +393,7 @@ public class Researcher
         if (!allTilesResearched) return false;
 
         bool allConditionsAreMet = recipe.Conditions.All(condition =>
-            (ConfigOptions.IgnoreCraftingConditions && IgnoringConditions.Contains(condition)) || condition.IsMet()
+            ShouldIgnoreCondition(condition) || condition.IsMet()
         );
         return allConditionsAreMet;
     }
