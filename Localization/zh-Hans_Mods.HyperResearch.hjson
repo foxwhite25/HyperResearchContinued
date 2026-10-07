@@ -129,7 +129,8 @@ Configs: {
 			Label: "[i:{0}] 自动研究 NPC 商店的内容"
 			Tooltip:
 				'''
-				打开商店时，研究该 NPC 当前出售的所有物品。
+				打开商店时，研究该 NPC 出售的所有物品，
+				包括条件类型被设置为忽略的商品。
 				[c/{$Colors.Condition}:需要先研究对应的货币（例如 ][i:{0}][c/{$Colors.Condition}:护卫奖章）。]
 				[c/{$Colors.Note}:或者指定快捷键，或使用商店界面下方的界面按钮来研究商店内容。]
 				'''
@@ -151,9 +152,8 @@ Configs: {
 			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}"
 			Tooltip:
 				'''
-				研究现存 NPC 的商店时，包含旅商可能出售的所有物品，
+				研究旅商的商店时，包含他可能出售的所有物品，
 				而不仅仅是当前到访时出售的商品。
-				[c/{$Colors.Note}:需要启用 {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name}。]
 				'''
 		}
 

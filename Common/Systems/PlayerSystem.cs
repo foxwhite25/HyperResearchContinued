@@ -73,5 +73,5 @@ public class PlayerSystem : ModSystem
         HyperPlayer?.ShareResearchedItemsAction();
 
     private void OnShopButtonMouseDown(UIMouseEvent evt, UIElement el) =>
-        HyperPlayer?.ResearchShop(HyperPlayer.CurrentShopItems);
+        HyperPlayer?.ResearchShop(HyperPlayer.CurrentShopItems, Main.LocalPlayer.TalkNPC, HyperPlayer.CurrentShopName);
 }

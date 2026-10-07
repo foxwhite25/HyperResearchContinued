@@ -33,6 +33,10 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     /// <seealso cref="KeybindSystem.ResearchShopBind" />
     public Item[] CurrentShopItems { get; set; } = [];
 
+    /// <summary>Full name of the current shop</summary>
+    /// <seealso cref="Terraria.ModLoader.AbstractNPCShop.FullName" />
+    public string? CurrentShopName { get; set; }
+
     public int ItemsResearchedCount { get; private set; }
 
     public bool WasInAether
@@ -206,7 +210,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
             return;
         }
 
-        ResearchShop(CurrentShopItems);
+        ResearchShop(CurrentShopItems, Player.TalkNPC, CurrentShopName);
     }
 
     public void ShareResearchedItemsAction()
@@ -439,14 +443,19 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     }
 
     /// <summary>
-    ///     Researches the <paramref name="shop" />.
+    ///     Researches the given <paramref name="shop" />. When <paramref name="npc" /> is given, entries of the
+    ///     corresponding NPC shop whose conditions are ignored by the config are researched as well.
     ///     If the currency for which the item is being sold has not been researched then the item is skipped
     /// </summary>
     /// <param name="shop">Array of shop items</param>
-    public void ResearchShop(Item[] shop)
+    /// <param name="npc">NPC the shop belongs to</param>
+    /// <param name="shopName">Full name of the shop to research, or <c>null</c> for all shops of the NPC</param>
+    public void ResearchShop(IEnumerable<Item> shop, NPC? npc = null, string? shopName = null)
     {
         Researcher researcher = new();
         researcher.ResearchItems(GetResearchableShopItemIds(shop));
+        if (npc is not null)
+            researcher.ResearchItems(GetResearchableShopItemIds(ItemsUtils.GetNPCShopItems(npc, shopName)));
         researcher.ProcessResearched(this);
         AfterLocalResearch(researcher);
     }

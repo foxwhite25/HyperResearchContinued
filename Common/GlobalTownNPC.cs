@@ -17,7 +17,8 @@ public class GlobalTownNPC : GlobalNPC
         if (Main.LocalPlayer.TryGetModPlayer(out HyperPlayer modPlayer))
         {
             modPlayer.CurrentShopItems = items;
-            if (HyperConfig.Instance.AutoResearchShop) modPlayer.ResearchShop(items);
+            modPlayer.CurrentShopName = shopName;
+            if (HyperConfig.Instance.AutoResearchShop) modPlayer.ResearchShop(items, npc, shopName);
         }
     }
 }

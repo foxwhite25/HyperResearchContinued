@@ -9,5 +9,6 @@ HyperResearch Continued v{ModVersion} has been published to {tMLBuildPurpose} tM
 
 [h1]Changes[/h1]
 [list]
-[*] The "Ignore some crafting conditions" option was split into four per-type options, which now also apply to NPC shop auto-research.
+[*] The "Ignore some crafting conditions" option was split into four per-type options, which now also apply to NPC shop research.
+[*] Researching an opened shop (automatically on open, via the keybind, or via the shop button) now includes entries whose ignored condition types are enabled, and covers the Traveling Merchant's full stock when that option is enabled.
 [/list]

@@ -129,7 +129,8 @@ Configs: {
 			Label: "[i:{0}] Auto-research the content of NPCs shops"
 			Tooltip:
 				'''
-				When opening a shop, researches everything the NPC is currently selling.
+				When opening a shop, researches everything the NPC sells,
+				including entries gated by condition types that are set to be ignored.
 				[c/{$Colors.Condition}:Requires the corresponding currency to be researched first (e.g., ][i:{0}][c/{$Colors.Condition}:Defender Medals).]
 				[c/{$Colors.Note}:Alternatively, assign a keybind or use the UI button below the shop interface to research its contents.]
 				'''
@@ -152,9 +153,8 @@ Configs: {
 			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}"
 			Tooltip:
 				'''
-				Includes every item the Traveling Merchant can sell when researching the shops of present NPCs,
+				Includes every item the Traveling Merchant can sell when researching his shop,
 				instead of only the items in his current stock.
-				[c/{$Colors.Note}:Requires {$Configs.HyperConfig.AutoResearchPresentNPCShops.Name} to be enabled.]
 				'''
 		}
 

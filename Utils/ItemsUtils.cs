@@ -45,11 +45,45 @@ public static class ItemsUtils
     }
 
     /// <summary>
-    ///     Returns all items purchasable from the shops of the NPCs present in the world.
-    ///     Includes every shop entry whose conditions are met, ignoring the condition types enabled in the config,
-    ///     so shops that only stock a subset of their catalog (like the Traveling Merchant) are covered as well.
+    ///     Returns all items purchasable from the <paramref name="shopName" /> of the given
+    ///     <paramref name="npc" />, or from all its shops when no name is given.
+    ///     Includes every entry whose conditions are met, ignoring the condition types enabled in the config.
     ///     The Traveling Merchant's full catalog is only included when
     ///     <see cref="HyperConfig.AutoResearchTravelingMerchantStock" /> is enabled
+    /// </summary>
+    public static IEnumerable<Item> GetNPCShopItems(NPC npc, string? shopName = null)
+    {
+        foreach (AbstractNPCShop shop in NPCShopDatabase.AllShops)
+        {
+            if (shop.NpcType != npc.type || (shopName is not null && shop.FullName != shopName)) continue;
+
+            List<Item> shopItems = [];
+            shop.FillShop(shopItems, npc);
+            foreach (Item item in shopItems)
+                if (!item.IsAir)
+                    yield return item;
+
+            // For the Traveling Merchant, active entries are the entire catalog rather than
+            // the current stock, so only include them when the option is enabled.
+            if (npc.type == NPCID.TravellingMerchant && !HyperConfig.Instance.AutoResearchTravelingMerchantStock)
+                continue;
+
+            foreach (AbstractNPCShop.Entry entry in shop.ActiveEntries)
+            {
+                if (entry.Item.IsAir || !entry.Conditions.All(Researcher.IsConditionMetForShop))
+                    continue;
+
+                Item item = entry.Item.Clone();
+                if (entry is NPCShop.Entry npcShopEntry)
+                    npcShopEntry.OnShopOpen(item, npc);
+                yield return item;
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Returns all items purchasable from the shops of the NPCs present in the world.
+    ///     Shops that only stock a subset of their catalog (like the Traveling Merchant) are covered as well
     /// </summary>
     public static IEnumerable<Item> GetPresentNPCShopItems()
     {
@@ -60,32 +94,8 @@ public static class ItemsUtils
             if (!npc.active || !shopNpcTypes.Contains(npc.type) || !processedNpcTypes.Add(npc.type))
                 continue;
 
-            foreach (AbstractNPCShop shop in NPCShopDatabase.AllShops)
-            {
-                if (shop.NpcType != npc.type) continue;
-
-                List<Item> shopItems = [];
-                shop.FillShop(shopItems, npc);
-                foreach (Item item in shopItems)
-                    if (!item.IsAir)
-                        yield return item;
-
-                // For the Traveling Merchant, active entries are the entire catalog rather than
-                // the current stock, so only include them when the option is enabled.
-                if (npc.type == NPCID.TravellingMerchant && !HyperConfig.Instance.AutoResearchTravelingMerchantStock)
-                    continue;
-
-                foreach (AbstractNPCShop.Entry entry in shop.ActiveEntries)
-                {
-                    if (entry.Item.IsAir || !entry.Conditions.All(Researcher.IsConditionMetForShop))
-                        continue;
-
-                    Item item = entry.Item.Clone();
-                    if (entry is NPCShop.Entry npcShopEntry)
-                        npcShopEntry.OnShopOpen(item, npc);
-                    yield return item;
-                }
-            }
+            foreach (Item item in GetNPCShopItems(npc))
+                yield return item;
         }
     }
 
