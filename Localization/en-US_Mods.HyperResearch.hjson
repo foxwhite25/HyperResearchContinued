@@ -143,8 +143,7 @@ Configs: {
 				'''
 				When using the [c/{$Colors.Mention}:{$Keybinds.ResearchCraftableItems.DisplayName}] action,
 				also researches every item sold by the NPCs currently present in the world.
-				[c/{$Colors.Note}:Whether the Traveling Merchant's whole catalog is researched is controlled by
-				{$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}.]
+				[c/{$Colors.Note}:Whether the Traveling Merchant's whole catalog is researched is controlled by {$Configs.HyperConfig.AutoResearchTravelingMerchantStock.Name}.]
 				'''
 		}
 
