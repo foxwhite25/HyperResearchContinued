@@ -46,25 +46,25 @@ public class ServerConfig : ModConfig
         [LabelKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreLocationConditions.Label")]
         [TooltipKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreLocationConditions.Tooltip")]
         [LabelArgs(ItemID.BottledWater)]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool IgnoreLocationConditions;
 
         [LabelKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreTimeConditions.Label")]
         [TooltipKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreTimeConditions.Tooltip")]
         [LabelArgs(ItemID.Sundial)]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool IgnoreTimeConditions;
 
         [LabelKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreEventConditions.Label")]
         [TooltipKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreEventConditions.Tooltip")]
         [LabelArgs(ItemID.WeatherRadio)]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool IgnoreEventConditions;
 
         [LabelKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreMoonPhaseConditions.Label")]
         [TooltipKey("$Mods.HyperResearch.Configs.HyperConfig.IgnoreMoonPhaseConditions.Tooltip")]
         [LabelArgs(ItemID.MoonCharm)]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool IgnoreMoonPhaseConditions;
 
         [LabelKey("$Mods.HyperResearch.Configs.HyperConfig.BalanceShimmerAutoresearch.Label")]
