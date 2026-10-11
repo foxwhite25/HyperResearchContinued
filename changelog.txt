@@ -2,14 +2,10 @@ HyperResearch Continued v{ModVersion} has been published to {tMLBuildPurpose} tM
 
 [h1]Additions[/h1]
 [list]
-[*] Separate options to choose which condition types are ignored when auto-researching craftable items and NPC shop stock: location, time of day, events, and moon phases.
-[*] Option to research all of the Traveling Merchant's stock instead of only the items in his current visit.
-[*] Dedicated option for researching the shops of NPCs present in the world with the craftable items action. Previously this was tied to the shop auto-research option.
-[*] Option to research the contents of a chest when opening it.
+[*] Option to research the contents of a chest when opening it: items whose total amount in the chest completes their research are researched and removed from it. With auto-sacrifice enabled, the remaining researchable items are consumed as partial sacrifices.
 [/list]
 
-[h1]Changes[/h1]
+[h1]Fixes[/h1]
 [list]
-[*] The "Ignore some crafting conditions" option was split into four per-type options, which now also apply to NPC shop research.
-[*] Researching an opened shop (automatically on open, via the keybind, or via the shop button) now includes entries whose ignored condition types are enabled, and covers the Traveling Merchant's full stock when that option is enabled.
+[*] Fixed the English tooltip of the "Research the shops of present NPCs with the craftable action" option, which displayed its note as raw text.
 [/list]
