@@ -162,6 +162,16 @@ Configs: {
 				'''
 		}
 
+		AutoResearchChestContents: {
+			Name: Изучать содержимое сундуков
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchChestContents.Name}"
+			Tooltip:
+				'''
+				При открытии сундука изучаются все предметы в нём,
+				включая предметы, оставленные в сундуке.
+				'''
+		}
+
 		# === BUFFS SETTINGS ===
 		UseResearchedBannersBuff: {
 			Label: "[i:{0}] Использовать бафф изученных баннеров"

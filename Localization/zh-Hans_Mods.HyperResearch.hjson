@@ -157,6 +157,16 @@ Configs: {
 				'''
 		}
 
+		AutoResearchChestContents: {
+			Name: 自动研究宝箱的内容
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchChestContents.Name}"
+			Tooltip:
+				'''
+				打开宝箱时，研究其中的所有物品，
+				包括留在宝箱中的物品。
+				'''
+		}
+
 		# === BUFFS SETTINGS ===
 		UseResearchedBannersBuff: {
 			Label: "[i:{0}] 使用已研究旗帜的增益"

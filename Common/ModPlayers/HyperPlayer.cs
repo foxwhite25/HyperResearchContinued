@@ -27,6 +27,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     /// <summary>Same as <see cref="Main.HoverItem" /> but not cloned</summary>
     private Item _hoverItem = new();
     private int _previousTeam;
+    private int _previousChest = -1;
     private bool _wasInAether;
 
     /// <summary>Array of items in current shop</summary>
@@ -273,6 +274,8 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
         if (!Researcher.IsPlayerInJourneyMode || Player != Main.LocalPlayer) return;
 
         if (HyperConfig.Instance.ResearchInventory) ResearchInventory();
+        if (HyperConfig.Instance.AutoResearchChestContents && Player.chest != _previousChest) ResearchOpenedChest();
+        _previousChest = Player.chest;
 
         if (!WasInAether && Main.LocalPlayer.ZoneShimmer)
             WasInAether = true;
@@ -456,6 +459,23 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
         researcher.ResearchItems(GetResearchableShopItemIds(shop));
         if (npc is not null)
             researcher.ResearchItems(GetResearchableShopItemIds(ItemsUtils.GetNPCShopItems(npc, shopName)));
+        researcher.ProcessResearched(this);
+        AfterLocalResearch(researcher);
+    }
+
+    /// <summary>
+    ///     Researches the contents of the chest the player has just opened.
+    /// </summary>
+    private void ResearchOpenedChest()
+    {
+        if (Player.chest < 0 || Player.chest >= Main.chest.Length ||
+            Main.chest[Player.chest] is not { } chest)
+        {
+            return;
+        }
+
+        Researcher researcher = new();
+        researcher.ResearchItems(chest.item.Where(item => item is { IsAir: false }).Select(item => item.type));
         researcher.ProcessResearched(this);
         AfterLocalResearch(researcher);
     }

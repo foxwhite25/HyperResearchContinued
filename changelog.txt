@@ -5,6 +5,7 @@ HyperResearch Continued v{ModVersion} has been published to {tMLBuildPurpose} tM
 [*] Separate options to choose which condition types are ignored when auto-researching craftable items and NPC shop stock: location, time of day, events, and moon phases.
 [*] Option to research all of the Traveling Merchant's stock instead of only the items in his current visit.
 [*] Dedicated option for researching the shops of NPCs present in the world with the craftable items action. Previously this was tied to the shop auto-research option.
+[*] Option to research the contents of a chest when opening it.
 [/list]
 
 [h1]Changes[/h1]

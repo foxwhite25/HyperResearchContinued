@@ -46,6 +46,10 @@ public class HyperConfig : ModConfig
     [DefaultValue(true)]
     public bool AutoResearchTravelingMerchantStock;
 
+    [LabelArgs(ItemID.GoldChest)]
+    [DefaultValue(true)]
+    public bool AutoResearchChestContents;
+
 
     [Header("BuffsSettingsHeader")]
 

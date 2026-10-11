@@ -158,6 +158,16 @@ Configs: {
 				'''
 		}
 
+		AutoResearchChestContents: {
+			Name: Auto-research the content of chests
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchChestContents.Name}"
+			Tooltip:
+				'''
+				When opening a chest, researches every item inside it,
+				including the items that are left in the chest.
+				'''
+		}
+
 		# === BUFFS SETTINGS ===
 		UseResearchedBannersBuff: {
 			Label: "[i:{0}] Use buff of researched banners"
