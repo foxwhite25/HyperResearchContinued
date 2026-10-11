@@ -162,8 +162,9 @@ Configs: {
 			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchChestContents.Name}"
 			Tooltip:
 				'''
-				打开宝箱时，研究其中的所有物品，
-				包括留在宝箱中的物品。
+				打开宝箱时，宝箱内总数已达到研究要求的可研究物品会被研究并从宝箱中移除。
+				[c/{$Colors.Note}:启用 {$Configs.HyperConfig.AutoSacrifice.Name} 时，其余可研究物品也会被移除。]
+				[c/{$Colors.Note}:数量不足的物品只会计入研究进度，已研究的物品会保留在宝箱中。]
 				'''
 		}
 

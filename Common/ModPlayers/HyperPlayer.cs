@@ -464,7 +464,10 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     }
 
     /// <summary>
-    ///     Researches the contents of the chest the player has just opened.
+    ///     Researches the contents of the chest the player has just opened and removes the items that
+    ///     completed their research count. When <see cref="HyperConfig.AutoSacrifice" /> is enabled,
+    ///     the remaining researchable items are removed as well, with incomplete stacks sacrificed
+    ///     so that they still advance the research counters. Already researched items are left in the chest.
     /// </summary>
     private void ResearchOpenedChest()
     {
@@ -474,8 +477,46 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
             return;
         }
 
+        int chestIndex = Player.chest;
+        Dictionary<int, int> itemCounts = [];
+        foreach (Item item in chest.item)
+        {
+            if (item is { IsAir: false })
+                itemCounts[item.type] = itemCounts.GetValueOrDefault(item.type, 0) + item.stack;
+        }
+
+        if (itemCounts.Count == 0) return;
+
         Researcher researcher = new();
-        researcher.ResearchItems(chest.item.Where(item => item is { IsAir: false }).Select(item => item.type));
+        HashSet<int> researchedItemIds = [];
+        foreach ((int itemId, int itemCount) in itemCounts)
+        {
+            if (researcher.ResearchItemWithCount(itemId, itemCount))
+                researchedItemIds.Add(itemId);
+        }
+
+        for (var slot = 0; slot < chest.item.Length; slot++)
+        {
+            Item item = chest.item[slot];
+            if (item.IsAir) continue;
+
+            if (!researchedItemIds.Contains(item.type))
+            {
+                if (!HyperConfig.Instance.AutoSacrifice ||
+                    Researcher.IsResearched(item.type) ||
+                    !Researcher.IsResearchable(item.type))
+                {
+                    continue;
+                }
+
+                researcher.SacrificeItem(item);
+            }
+
+            item.TurnToAir();
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chestIndex, slot);
+        }
+
         researcher.ProcessResearched(this);
         AfterLocalResearch(researcher);
     }

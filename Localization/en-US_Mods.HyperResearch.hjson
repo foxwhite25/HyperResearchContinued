@@ -162,8 +162,10 @@ Configs: {
 			Label: "[i:{0}] {$Configs.HyperConfig.AutoResearchChestContents.Name}"
 			Tooltip:
 				'''
-				When opening a chest, researches every item inside it,
-				including the items that are left in the chest.
+				When opening a chest, researchable items whose total amount in the chest completes
+				their research requirement are researched and removed from the chest.
+				[c/{$Colors.Note}:With {$Configs.HyperConfig.AutoSacrifice.Name} enabled, the remaining researchable items are removed as well.]
+				[c/{$Colors.Note}:The incomplete ones only advance their research counter, and already researched items are left in the chest.]
 				'''
 		}
 
