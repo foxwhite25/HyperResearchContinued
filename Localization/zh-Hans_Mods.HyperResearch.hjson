@@ -297,17 +297,17 @@ Configs: {
 
 		ShowBannerBuffTooltips: {
 			Label: 显示 [c/{$Colors.Game.RarityGreen}:按 <key> 启用]/[c/{$Colors.Game.RarityRed}:禁用旗帜增益] 提示信息
-			Tooltip: ""
+			Tooltip: 该提示只会显示在复制菜单中的旗帜物品上。旗帜增益通过 {$Keybinds.EnableDisableBuff.DisplayName} 快捷键切换。
 		}
 
 		ShowPotionBuffTooltips: {
 			Label: 显示 [c/{$Colors.Game.RarityGreen}:按 <key> 启用]/[c/{$Colors.Game.RarityRed}:禁用增益] 提示信息
-			Tooltip: ""
+			Tooltip: 该提示只会显示在复制菜单中的药水物品上。增益通过 {$Keybinds.EnableDisableBuff.DisplayName} 快捷键切换。
 		}
 
 		ShowSelectPrefixTooltip: {
 			Label: 显示 [c/{$Colors.Game.CoinSilver}:按 <key> 选择所需的修饰语] 提示信息
-			Tooltip: ""
+			Tooltip: 该提示只会显示在复制菜单中可拥有修饰语的物品上。修饰语选择窗口通过 {$Keybinds.SelectModifier.DisplayName} 快捷键打开。
 		}
 
 		# === RESEARCH SETTINGS ===
@@ -583,5 +583,6 @@ Keybinds: {
 	ResearchBagContents.DisplayName: 研究袋子/板条箱内容
 	ResearchShop.DisplayName: 研究商店
 	EnableDisableBuff.DisplayName: 切换增益
+	SelectModifier.DisplayName: 选择修饰语
 	MaxStack.DisplayName: 已研究物品最大堆叠
 }

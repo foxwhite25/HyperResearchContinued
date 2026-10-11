@@ -298,17 +298,17 @@ Configs: {
 
 		ShowBannerBuffTooltips: {
 			Label: Show [c/{$Colors.Game.RarityGreen}:Press <key> to enable]/[c/{$Colors.Game.RarityRed}:disable banner buff] tooltip
-			Tooltip: ""
+			Tooltip: The tooltip is only displayed on banner items in the duplication menu. The banner buff is toggled with the {$Keybinds.EnableDisableBuff.DisplayName} keybind.
 		}
 
 		ShowPotionBuffTooltips: {
 			Label: Show [c/{$Colors.Game.RarityGreen}:Press <key> to enable]/[c/{$Colors.Game.RarityRed}:disable buff] tooltip
-			Tooltip: ""
+			Tooltip: The tooltip is only displayed on potion items in the duplication menu. The buff is toggled with the {$Keybinds.EnableDisableBuff.DisplayName} keybind.
 		}
 
 		ShowSelectPrefixTooltip: {
 			Label: Show [c/{$Colors.Game.CoinSilver}:Press <key> to select the desired modifier] tooltip
-			Tooltip: ""
+			Tooltip: The tooltip is only displayed on items in the duplication menu that can have modifiers. The modifier selector is opened with the {$Keybinds.SelectModifier.DisplayName} keybind.
 		}
 
 		# === RESEARCH SETTINGS ===
@@ -584,5 +584,6 @@ Keybinds: {
 	ResearchBagContents.DisplayName: Research Bag/Crate Contents
 	ResearchShop.DisplayName: Research Shop
 	EnableDisableBuff.DisplayName: Toggle Buff
+	SelectModifier.DisplayName: Select Modifier
 	MaxStack.DisplayName: Max Stack Researched Item
 }

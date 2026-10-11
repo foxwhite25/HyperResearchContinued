@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using HyperResearch.Common.Configs;
+using HyperResearch.Common.Systems;
 using HyperResearch.UI;
 using HyperResearch.Utils;
 using Terraria;
@@ -25,7 +26,8 @@ public class PrefixableGlobalItem : GlobalItem
         TooltipLine tooltipLine = new(
             Mod,
             "ChoosePrefix",
-            Language.GetText("Mods.HyperResearch.Tooltips.ChoosePrefix").Format("Mouse3")
+            Language.GetText("Mods.HyperResearch.Tooltips.ChoosePrefix")
+                .Format(InputUtils.GetKeybindString(KeybindSystem.SelectModifierBind))
         )
         {
             OverrideColor = Colors.CoinSilver

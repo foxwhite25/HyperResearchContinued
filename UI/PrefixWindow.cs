@@ -1,4 +1,5 @@
-﻿using HyperResearch.UI.PrefixWindowElements;
+﻿using HyperResearch.Common.Systems;
+using HyperResearch.UI.PrefixWindowElements;
 using HyperResearch.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -93,7 +94,11 @@ public class PrefixWindow : UIState
         base.LeftMouseDown(evt);
     }
 
-    public override void MiddleClick(UIMouseEvent evt)
+    /// <summary>
+    ///     Opens the modifier selector for the hovered item. Used by the
+    ///     <see cref="KeybindSystem.SelectModifierBind" /> keybind
+    /// </summary>
+    public void TryOpen()
     {
         if (!CanBeShown
             || !ItemsUtils.CanHavePrefixes(Main.HoverItem)
@@ -102,10 +107,9 @@ public class PrefixWindow : UIState
         _mainPanel.MaxHeight.Pixels = MathHelper.Clamp(Main.screenHeight - 352f - 64f, 150f, 300f);
         CalculatedStyle dim = _mainPanel.GetDimensions();
         _mainPanel.Top.Pixels =
-            MathHelper.Clamp(evt.MousePosition.Y - dim.Height / 2, 352f, Main.screenHeight - dim.Height - 64f);
+            MathHelper.Clamp(Main.MouseScreen.Y - dim.Height / 2, 352f, Main.screenHeight - dim.Height - 64f);
 
         SetPrefixes(Main.HoverItem.Clone());
         SoundEngine.PlaySound(SoundID.MenuTick);
-        base.MiddleClick(evt);
     }
 }

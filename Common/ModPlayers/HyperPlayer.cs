@@ -109,6 +109,8 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
             ResearchLootAction();
         if (KeybindSystem.ResearchShopBind!.JustPressed)
             ResearchShopAction();
+        if (KeybindSystem.SelectModifierBind!.JustPressed)
+            SelectModifierAction();
     }
 
     public override void ProcessTriggers(TriggersSet triggersSet)
@@ -138,6 +140,8 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
             ResearchLootAction();
         if (KeybindSystem.ResearchShopBind!.JustPressed)
             ResearchShopAction();
+        if (KeybindSystem.SelectModifierBind!.JustPressed)
+            SelectModifierAction();
         if (KeybindSystem.ShareAllResearched!.JustPressed)
             ShareResearchedItemsAction();
     }
@@ -212,6 +216,14 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
         }
 
         ResearchShop(CurrentShopItems, Player.TalkNPC, CurrentShopName);
+    }
+
+    /// <summary>
+    ///     Opens the modifier selector of the hovered item in the duplication menu
+    /// </summary>
+    public void SelectModifierAction()
+    {
+        ModContent.GetInstance<UISystem>().PrefixWindow?.TryOpen();
     }
 
     public void ShareResearchedItemsAction()

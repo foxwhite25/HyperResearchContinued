@@ -13,6 +13,7 @@ public class KeybindSystem : ModSystem
     public static ModKeybind? ShareAllResearched { get; private set; }
     public static ModKeybind? MaxStackBind { get; private set; }
     public static ModKeybind? EnableDisableBuffBind { get; private set; }
+    public static ModKeybind? SelectModifierBind { get; private set; }
     public static ModKeybind? ResearchLootBind { get; private set; }
     public static ModKeybind? ResearchShopBind { get; private set; }
 
@@ -31,6 +32,7 @@ public class KeybindSystem : ModSystem
         ShareAllResearched = KeybindLoader.RegisterKeybind(Mod, "ShareAllResearched", Keys.PageUp);
         MaxStackBind = KeybindLoader.RegisterKeybind(Mod, "MaxStack", Keys.OemTilde);
         EnableDisableBuffBind = KeybindLoader.RegisterKeybind(Mod, "EnableDisableBuff", "Mouse3");
+        SelectModifierBind = KeybindLoader.RegisterKeybind(Mod, "SelectModifier", "Mouse3");
         ResearchLootBind = KeybindLoader.RegisterKeybind(Mod, "ResearchBagContents", Keys.OemQuotes);
         ResearchShopBind = KeybindLoader.RegisterKeybind(Mod, "ResearchShop", Keys.OemSemicolon);
     }
@@ -50,6 +52,7 @@ public class KeybindSystem : ModSystem
         ShareAllResearched = null;
         MaxStackBind = null;
         EnableDisableBuffBind = null;
+        SelectModifierBind = null;
         ResearchLootBind = null;
         ResearchShopBind = null;
     }

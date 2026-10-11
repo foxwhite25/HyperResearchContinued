@@ -303,17 +303,17 @@ Configs: {
 
 		ShowBannerBuffTooltips: {
 			Label: Показывать подсказку [c/{$Colors.Game.RarityGreen}:Нажмите <кнопку>, чтобы включить]/[c/{$Colors.Game.RarityRed}:выключить эффект баннера]
-			Tooltip: ""
+			Tooltip: Подсказка отображается только на баннерах в меню дупликатов. Эффект баннера переключается клавишей {$Keybinds.EnableDisableBuff.DisplayName}.
 		}
 
 		ShowPotionBuffTooltips: {
 			Label: Показывать подсказку [c/{$Colors.Game.RarityGreen}:Нажмите <кнопку>, чтобы включить]/[c/{$Colors.Game.RarityRed}:выключить бафф]
-			Tooltip: ""
+			Tooltip: Подсказка отображается только на зельях в меню дупликатов. Бафф переключается клавишей {$Keybinds.EnableDisableBuff.DisplayName}.
 		}
 
 		ShowSelectPrefixTooltip: {
 			Label: Показывать подсказку [c/{$Colors.Game.CoinSilver}:Нажмите <кнопку> чтобы выбрать желаемый модификатор]
-			Tooltip: ""
+			Tooltip: Подсказка отображается только на предметах с модификаторами в меню дупликатов. Окно выбора модификатора открывается клавишей {$Keybinds.SelectModifier.DisplayName}.
 		}
 
 		# === RESEARCH SETTINGS ===
@@ -595,5 +595,6 @@ Keybinds: {
 	ResearchBagContents.DisplayName: Изучить содержимое мешка/ящика
 	ResearchShop.DisplayName: Изучить магазин
 	EnableDisableBuff.DisplayName: Переключить бафф
+	SelectModifier.DisplayName: Выбрать модификатор
 	MaxStack.DisplayName: Установить макс. стак предмету
 }
