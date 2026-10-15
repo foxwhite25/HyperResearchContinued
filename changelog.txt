@@ -2,6 +2,9 @@ HyperResearch Continued v{ModVersion} has been published to {tMLBuildPurpose} tM
 
 [h1]Changes[/h1]
 [list]
-[*] Selecting an item modifier in the duplication menu now uses its own "Select Modifier" keybind, bound to Mouse3 by default, instead of being hardcoded to the middle mouse button.
-[*] The banner, potion and modifier tooltip options now state that these tooltips are only displayed on items in the duplication menu and reference the corresponding keybind.
+[*] Added a "Show deleted items" option to the Messages Settings that reports researched items removed from the inventory by the Clear action or the auto-trash options.
+[*] The auto-trash options and the new "Show deleted items" option now warn that using them together will produce a chat message for every deleted item.
+[*] The "Show sacrificed items" option now warns that using it together with Auto-sacrifice will produce a chat message for every sacrificed item.
+[*] Fixed the "Ignore moon phase conditions" option not applying to the Skeleton Merchant's full moon stock and to the Luminite Brick's shimmer transmutations.
+[*] Shimmer research now recognizes the game's hardcoded transmutations that are missing from the shimmer transmutation table (Rod of Discord, Clentaminator, Bottomless Buckets and Music Boxes).
 [/list]
