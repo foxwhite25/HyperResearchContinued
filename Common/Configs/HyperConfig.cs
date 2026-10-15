@@ -215,6 +215,9 @@ public class HyperConfig : ModConfig
     [DefaultValue(false)]
     public bool ShowSacrifices;
 
+    [DefaultValue(false)]
+    public bool ShowDeletedItems;
+
 
     [Header("MultiplayerMessagesSettingsHeader")]
 

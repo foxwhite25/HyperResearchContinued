@@ -96,6 +96,20 @@ public static class TextUtils
         );
     }
 
+    /// <summary>Displays information about items deleted from the inventory in the game chat</summary>
+    public static void MessageDeletedItems(List<int>? items)
+    {
+        if (!HyperConfig.Instance.ShowDeletedItems || items == null || items.Count == 0) return;
+        Main.NewText(
+            Language.GetTextValue(
+                "Mods.HyperResearch.Messages.DeletedItems",
+                items.Count,
+                GetItemsString(items)
+            ),
+            Color.Lerp(Colors.JourneyMode, Colors.CoinSilver, 0.5f)
+        );
+    }
+
     public static void MessageOtherPlayerResearchedItems(List<int>? items, int playerId)
     {
         if (!HyperConfig.Instance.ShowOtherPlayersResearchedItems || items == null || items.Count == 0) return;

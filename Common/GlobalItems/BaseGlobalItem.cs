@@ -20,7 +20,11 @@ public partial class BaseGlobalItem : GlobalItem
     {
         if (!Researcher.IsPlayerInJourneyMode) return true;
         if (Researcher.IsResearched(item.type))
-            return !HyperConfig.Instance.AutoTrashResearched;
+        {
+            if (!HyperConfig.Instance.AutoTrashResearched) return true;
+            if (player == Main.LocalPlayer) TextUtils.MessageDeletedItems([item.type]);
+            return false;
+        }
 
         if (!HyperConfig.Instance.AutoSacrifice) return true;
 

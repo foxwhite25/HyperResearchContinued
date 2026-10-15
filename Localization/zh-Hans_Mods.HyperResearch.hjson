@@ -20,6 +20,7 @@ Messages: {
 	ShimmerResearchedItems: 已研究 {0} 个微光转化物品：{1}
 	DecraftResearchedItems: 已研究 {0} 个微光分解物品：{1}
 	Sacrifices: 已献祭 {0} 个物品：{1}
+	DeletedItems: 已删除 {0} 个物品：{1}
 	SharedSacrifices: "{0} 分享了 {1} 个献祭物品：{2}"
 	OtherPlayerResearchedItems: "{0} 研究了 {1} 个新物品：{2}"
 	SharedAllItems: 已共享 {0} 个物品
@@ -202,16 +203,22 @@ Configs: {
 		AutoTrashResearched: {
 			Name: 自动丢弃已研究的拾取物品
 			Label: "[i:{0}] {$Configs.HyperConfig.AutoTrashResearched.Name}"
-			Tooltip: 拾取已研究的物品时，会自动丢弃而不是放入物品栏。
+			Tooltip:
+				'''
+				拾取已研究的物品时，会自动丢弃而不是放入物品栏。
+				[c/{$Colors.Warning}:建议禁用] [c/{$Colors.Mention}:{$Configs.HyperConfig.ShowDeletedItems.Label}] [c/{$Colors.Warning}:以避免聊天消息过多。]
+				'''
 		}
 
 		AutoTrashAfterResearching: {
-			Label: "[i:{0}] 研究后自动丢弃物品"
+			Name: 研究后自动丢弃物品
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoTrashAfterResearching.Name}"
 			Tooltip:
 				'''
 				与 [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoTrashResearched.Name}] 不同，
 				此选项会在物品完成研究后立即将其从物品栏中移除。
 				[c/{$Colors.Note}:清理设置决定影响哪些物品栏槽位。]
+				[c/{$Colors.Warning}:建议禁用] [c/{$Colors.Mention}:{$Configs.HyperConfig.ShowDeletedItems.Label}] [c/{$Colors.Warning}:以避免聊天消息过多。]
 				'''
 		}
 
@@ -430,9 +437,23 @@ Configs: {
 				'''
 				执行研究操作时
 				聊天中会显示哪些物品被献祭了
+				[c/{$Colors.Warning}:不建议与] [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoSacrifice.Name}] [c/{$Colors.Warning}:同时开启，因为每个被献祭的物品都会产生一条聊天消息。]
 
 				例如：
 				[c/F1A0BF:已献祭 2 个物品：] [i/s2:2][i/s99:3]
+				'''
+		}
+
+		ShowDeletedItems: {
+			Label: 显示已删除的物品
+			Tooltip:
+				'''
+				当已研究的物品因 [c/{$Colors.Mention}:{$Keybinds.ClearResearchedItems.DisplayName}] 操作或自动丢弃设置
+				而从物品栏中删除时，显示聊天消息。
+				[c/{$Colors.Warning}:不建议与] [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoTrashResearched.Name}] [c/{$Colors.Warning}:或] [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoTrashAfterResearching.Name}] [c/{$Colors.Warning}:同时开启，因为每个被丢弃的物品都会产生一条聊天消息。]
+
+				例如：
+				[c/DA9CBE:已删除 3 个物品：] [i:1][i:2][i:3]
 				'''
 		}
 

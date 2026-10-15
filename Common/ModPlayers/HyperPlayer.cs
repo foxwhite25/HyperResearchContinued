@@ -410,7 +410,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
 
     public void ClearResearched()
     {
-        var anyItemCleaned = false;
+        List<int> deletedItems = [];
         for (var slot = 0; slot < Main.InventorySlotsTotal; slot++)
         {
             Item? item = Player.inventory[slot];
@@ -420,15 +420,19 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
                 (!HyperConfig.Instance.ClearAmmoSlots && IsAmmoSlot(slot)))
                 continue;
 
+            int itemId = item.type; // Save the ID because TurnToAir resets the item type
             item.TurnToAir();
-            anyItemCleaned = true;
+            if (!deletedItems.Contains(itemId)) deletedItems.Add(itemId);
         }
 
-        if (anyItemCleaned) SoundEngine.PlaySound(SoundID.Grab);
+        if (deletedItems.Count == 0) return;
+        SoundEngine.PlaySound(SoundID.Grab);
+        TextUtils.MessageDeletedItems(deletedItems);
     }
 
     private void TrashInventoryItems(int[] items)
     {
+        List<int> deletedItems = [];
         for (var slot = 0; slot < Main.InventorySlotsTotal; slot++)
         {
             Item? item = Player.inventory[slot];
@@ -437,8 +441,14 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
                 (!HyperConfig.Instance.ClearCoinsSlots && IsCoinSlot(slot)) ||
                 (!HyperConfig.Instance.ClearAmmoSlots && IsAmmoSlot(slot)))
                 continue;
-            if (items.Contains(item.type)) item.TurnToAir();
+            if (!items.Contains(item.type)) continue;
+
+            int itemId = item.type; // Save the ID because TurnToAir resets the item type
+            item.TurnToAir();
+            if (!deletedItems.Contains(itemId)) deletedItems.Add(itemId);
         }
+
+        TextUtils.MessageDeletedItems(deletedItems);
     }
 
     /// <summary>

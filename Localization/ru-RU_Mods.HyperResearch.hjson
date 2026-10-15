@@ -20,6 +20,7 @@ Messages: {
 	ShimmerResearchedItems: Изучено {0} {^0:мерцающее преобразование;мерцающих преобразования;мерцающих преобразований}: {1}
 	DecraftResearchedItems: "{^0:Изучен;Изучено;Изучено} {0} {^0:предмет;предмета;предметов} в процессе декрафта: {1}"
 	Sacrifices: Частично {^0:изучен;изучено;изучено} {0} {^0:предмет;предмета;предметов}: {1}
+	DeletedItems: "{^0:Удален;Удалено;Удалено} {0} {^0:предмет;предмета;предметов}: {1}"
 	SharedSacrifices: "{0} поделился {1} частично {^1:изученным предметом;изученными предметами;изученными предметами}: {2}"
 	OtherPlayerResearchedItems: "{0} изучил {1} {^1:новый предмет;новых предмета;новых предметов}: {2}"
 	SharedAllItems: Вы поделились {0} {^0:предметом;предметами;предметами}
@@ -208,16 +209,22 @@ Configs: {
 		AutoTrashResearched: {
 			Name: Не подбирать изученные предметы
 			Label: "[i:{0}] {$Configs.HyperConfig.AutoTrashResearched.Name}"
-			Tooltip: Все подобранные предметы, которые уже изучены, больше не будут добавляться в инвентарь
+			Tooltip:
+				'''
+				Все подобранные предметы, которые уже изучены, больше не будут добавляться в инвентарь
+				[c/{$Colors.Warning}:Рекомендуется выключить] [c/{$Colors.Mention}:{$Configs.HyperConfig.ShowDeletedItems.Label}] [c/{$Colors.Warning}:, чтобы не заполнять чат множеством сообщений.]
+				'''
 		}
 
 		AutoTrashAfterResearching: {
-			Label: "[i:{0}] Убирать предмет после изучения"
+			Name: Убирать предмет после изучения
+			Label: "[i:{0}] {$Configs.HyperConfig.AutoTrashAfterResearching.Name}"
 			Tooltip:
 				'''
 				В отличие от настройки "[c/{$Colors.Mention}:{$Configs.HyperConfig.AutoTrashResearched.Name}]",
 				убирает этот предмет из инвентаря сразу после изучения, а не во время подбора.
 				[c/{$Colors.Note}:Настройки очистки определяют, какие слоты инвентаря затрагиваются.]
+				[c/{$Colors.Warning}:Рекомендуется выключить] [c/{$Colors.Mention}:{$Configs.HyperConfig.ShowDeletedItems.Label}] [c/{$Colors.Warning}:, чтобы не заполнять чат множеством сообщений.]
 				'''
 		}
 
@@ -443,9 +450,25 @@ Configs: {
 			Tooltip:
 				'''
 				Этот сообщений появляется при выполнении действия изучения.
+				[c/{$Colors.Warning}:Не рекомендуется, если включена настройка] [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoSacrifice.Name}],
+				[c/{$Colors.Warning}:так как каждый частично изученный предмет будет создавать сообщение в чате.]
 
 				Например:
 				[c/F1A0BF:Частично изучено 2 предмета:] [i/s2:2][i/s99:3]
+				'''
+		}
+
+		ShowDeletedItems: {
+			Label: Показывать удаленные предметы
+			Tooltip:
+				'''
+				Показывает сообщение в чате, когда изученные предметы удаляются из инвентаря
+				действием [c/{$Colors.Mention}:{$Keybinds.ClearResearchedItems.DisplayName}] или настройками автоматической очистки.
+				[c/{$Colors.Warning}:Не рекомендуется, если включена настройка] [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoTrashResearched.Name}] [c/{$Colors.Warning}:или] [c/{$Colors.Mention}:{$Configs.HyperConfig.AutoTrashAfterResearching.Name}],
+				[c/{$Colors.Warning}:так как каждый удалённый предмет будет создавать сообщение в чате.]
+
+				Например:
+				[c/DA9CBE:Удалено 3 предмета:] [i:1][i:2][i:3]
 				'''
 		}
 
