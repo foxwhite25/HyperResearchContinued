@@ -250,7 +250,7 @@ Configs: {
 		IgnoreMoonPhaseConditions: {
 			Name: Ignore moon phase conditions
 			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreMoonPhaseConditions.Name}"
-			Tooltip: Ignore moon phase conditions when auto-researching craftable items and NPC shops.
+			Tooltip: Ignore moon phase conditions when auto-researching craftable items, shimmer item transmutations and NPC shops.
 		}
 
 		BalanceShimmerAutoresearch: {

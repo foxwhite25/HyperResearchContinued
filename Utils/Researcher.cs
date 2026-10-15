@@ -146,7 +146,17 @@ public class Researcher
         (ConfigOptions.IgnoreLocationConditions && IgnoringLocationConditions.Contains(condition))
         || (ConfigOptions.IgnoreTimeConditions && IgnoringTimeConditions.Contains(condition))
         || (ConfigOptions.IgnoreEventConditions && IgnoringEventConditions.Contains(condition))
-        || (ConfigOptions.IgnoreMoonPhaseConditions && IgnoringMoonPhaseConditions.Contains(condition));
+        || (ConfigOptions.IgnoreMoonPhaseConditions && IgnoringMoonPhaseConditions.Contains(condition))
+        || ShouldIgnoreCompositeCondition(condition);
+
+    /// <summary>
+    ///     Whether <paramref name="condition" /> is one of the compound day/night and moon phase conditions
+    ///     tModLoader creates for the Skeleton Merchant's stock (<c>Conditions.NightDayFullMoon</c> and
+    ///     <c>Conditions.DaytimeNotFullMoon</c>). They are ignored whenever either condition type is ignored.
+    /// </summary>
+    private static bool ShouldIgnoreCompositeCondition(Condition condition) =>
+        condition.Description.Key is "Conditions.NightDayFullMoon" or "Conditions.DaytimeNotFullMoon"
+        && (ConfigOptions.IgnoreTimeConditions || ConfigOptions.IgnoreMoonPhaseConditions);
 
     /// <summary>
     ///     Whether the <paramref name="condition" /> is met for the purpose of researching NPC shop items.
@@ -319,8 +329,7 @@ public class Researcher
 
     public void TryResearchShimmerItem(int itemId)
     {
-        int shimmerItemId = ItemsUtils.GetShimmerItemId_CanShimmer(itemId);
-        if (shimmerItemId > 0)
+        foreach (int shimmerItemId in ItemsUtils.GetShimmerItemIds_CanShimmer(itemId))
             ResearchItem(shimmerItemId, ResearchSource.Shimmer);
     }
 

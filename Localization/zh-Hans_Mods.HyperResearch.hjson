@@ -249,7 +249,7 @@ Configs: {
 		IgnoreMoonPhaseConditions: {
 			Name: 忽略月相条件
 			Label: "[i:{0}] {$Configs.HyperConfig.IgnoreMoonPhaseConditions.Name}"
-			Tooltip: 自动研究可制作物品和 NPC 商店物品时，忽略月相条件。
+			Tooltip: 自动研究可制作物品、微光转化物品和 NPC 商店物品时，忽略月相条件。
 		}
 
 		BalanceShimmerAutoresearch: {

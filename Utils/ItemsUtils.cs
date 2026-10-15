@@ -4,6 +4,7 @@ using System.Reflection;
 using HyperResearch.Common.Configs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Enums;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.UI;
@@ -117,29 +118,75 @@ public static class ItemsUtils
             .Select(info => info.itemId);
     }
 
-    public static int GetShimmerItemId(int itemId)
+    /// <summary>
+    ///     Returns the item ids <paramref name="itemId" /> transforms into when thrown into shimmer,
+    ///     or an empty list when it has no direct transmutation.
+    ///     Mirrors the game's <c>Item.GetShimmered</c> logic, including the transmutations that are
+    ///     hardcoded there instead of being listed in <see cref="ItemID.Sets.ShimmerTransformToItem" />.
+    /// </summary>
+    public static List<int> GetShimmerItemIds(int itemId)
     {
-        if (ItemID.Sets.ShimmerCountsAsItem.IndexInRange(itemId) && ItemID.Sets.ShimmerCountsAsItem[itemId] > 0)
-            itemId = ItemID.Sets.ShimmerCountsAsItem[itemId];
-        if (ItemID.Sets.ShimmerTransformToItem.IndexInRange(itemId) && ItemID.Sets.ShimmerTransformToItem[itemId] > 0)
-            return ItemID.Sets.ShimmerTransformToItem[itemId];
-        else
-            return -1;
+        int equivalentItemId = itemId;
+        if (ItemID.Sets.ShimmerCountsAsItem.IndexInRange(equivalentItemId) && ItemID.Sets.ShimmerCountsAsItem[equivalentItemId] > 0)
+            equivalentItemId = ItemID.Sets.ShimmerCountsAsItem[equivalentItemId];
+
+        switch (equivalentItemId)
+        {
+            // Luminite Brick turns into one of the eight Luminite bricks, chosen by the current moon phase.
+            // With moon phase conditions ignored every variant is obtainable, so research all of them.
+            case ItemID.LunarBrick when ConfigOptions.IgnoreMoonPhaseConditions:
+                return
+                [
+                    ItemID.HeavenforgeBrick, ItemID.LunarRustBrick, ItemID.AstraBrick, ItemID.DarkCelestialBrick,
+                    ItemID.MercuryBrick, ItemID.StarRoyaleBrick, ItemID.CryocoreBrick, ItemID.CosmicEmberBrick
+                ];
+            case ItemID.LunarBrick:
+                return [GetCurrentMoonPhaseBrick()];
+            case ItemID.RodofDiscord when NPC.downedMoonlord:
+                return [ItemID.RodOfHarmony];
+            case ItemID.Clentaminator when NPC.downedMoonlord:
+                return [ItemID.Clentaminator2];
+            case ItemID.BottomlessBucket when NPC.downedMoonlord:
+                return [ItemID.BottomlessShimmerBucket];
+            case ItemID.BottomlessShimmerBucket when NPC.downedMoonlord:
+                return [ItemID.BottomlessBucket];
+            default:
+                break;
+        }
+
+        if (ContentSamples.ItemsByType[itemId].createTile == TileID.MusicBoxes)
+            return [ItemID.MusicBox];
+
+        if (ItemID.Sets.ShimmerTransformToItem.IndexInRange(equivalentItemId) && ItemID.Sets.ShimmerTransformToItem[equivalentItemId] > 0)
+            return [ItemID.Sets.ShimmerTransformToItem[equivalentItemId]];
+
+        return [];
     }
 
-    public static int GetShimmerItemId_CanShimmer(int itemId)
+    /// <summary>The Luminite brick Luminite bricks turn into during the current moon phase.</summary>
+    private static int GetCurrentMoonPhaseBrick() => Main.GetMoonPhase() switch
     {
-        int shimmerId = GetShimmerItemId(itemId);
-        if (shimmerId > 0 && ContentSamples.ItemsByType[itemId].CanShimmer())
-            return shimmerId;
-        return -1;
+        MoonPhase.Full => ItemID.HeavenforgeBrick,
+        MoonPhase.ThreeQuartersAtLeft => ItemID.LunarRustBrick,
+        MoonPhase.HalfAtLeft => ItemID.AstraBrick,
+        MoonPhase.QuarterAtLeft => ItemID.DarkCelestialBrick,
+        MoonPhase.QuarterAtRight => ItemID.StarRoyaleBrick,
+        MoonPhase.HalfAtRight => ItemID.CryocoreBrick,
+        MoonPhase.ThreeQuartersAtRight => ItemID.CosmicEmberBrick,
+        _ => ItemID.MercuryBrick
+    };
+
+    public static List<int> GetShimmerItemIds_CanShimmer(int itemId)
+    {
+        List<int> shimmerItemIds = GetShimmerItemIds(itemId);
+        if (shimmerItemIds.Count > 0 && ContentSamples.ItemsByType[itemId].CanShimmer())
+            return shimmerItemIds;
+        return [];
     }
 
     private static Recipe? GetDecraftRecipe(int itemId)
     {
-        if (GetShimmerItemId(itemId) >= 0)
-            return null;
-        if (ContentSamples.ItemsByType[itemId].createTile == TileID.MusicBoxes)
+        if (GetShimmerItemIds(itemId).Count > 0)
             return null;
 
         if (ItemID.Sets.ShimmerCountsAsItem.IndexInRange(itemId) && ItemID.Sets.ShimmerCountsAsItem[itemId] > 0)
