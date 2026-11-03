@@ -87,7 +87,8 @@ public partial class BaseGlobalItem : GlobalItem
         else if (!Researcher.IsResearched(item.type))
         {
             int vanillaTooltipIndex = tooltips.FindIndex(tooltip => tooltip.Name == "JourneyResearch");
-            if (!HyperConfig.Instance.UseCustomResearchTooltip)
+            if (!HyperConfig.Instance.UseCustomResearchTooltip
+                && item.tooltipContext != ItemSlot.Context.CreativeInfinite)
             {
                 if (!ConfigOptions.OnlyOneItemNeeded || vanillaTooltipIndex == -1) return;
 

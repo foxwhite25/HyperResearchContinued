@@ -77,6 +77,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
     {
         TryAddToResearchedTiles(item.type);
         ItemsResearchedCount++;
+        ResearchProgress.InvalidateProgress();
     }
 
     public override void UpdateAutopause()
@@ -152,6 +153,7 @@ public class HyperPlayer : ModPlayer, IResearchPlayer
         Player.creativeTracker.Reset();
         ResearchedTiles.Clear();
         ItemsResearchedCount = 0;
+        ResearchProgress.Invalidate();
     }
 
     public void ResearchAllAction()

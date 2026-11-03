@@ -23,6 +23,9 @@ public class HooksSystem : ModSystem
     private static readonly FieldInfo? CreativeSearchField = typeof(ItemFilters.BySearch).GetField(
         "_search", BindingFlags.Instance | BindingFlags.NonPublic);
 
+    private static readonly Color EnabledBuffColor = new(53, 111, 85);
+    private static readonly Color DisabledBuffColor = new(107, 57, 81);
+
     public override void Load()
     {
         IL_ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color += EditItemSlotDraw;
@@ -129,19 +132,27 @@ public class HooksSystem : ModSystem
             c.EmitLdloc1(); // item
             c.EmitDelegate((SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Color color, int context, Item item) =>
             {
-                if (HyperConfig.Instance.VisualizeBuffStatus && context == ItemSlot.Context.CreativeInfinite)
+                if (context == ItemSlot.Context.CreativeInfinite
+                    && MissingItemsSystem.Active
+                    && !Researcher.IsResearched(item.type))
+                {
+                    // Missing items are read-only, including buff items whose buff is
+                    // already enabled through another researched item (for example Well Fed).
+                    color = DisabledBuffColor;
+                }
+                else if (HyperConfig.Instance.VisualizeBuffStatus && context == ItemSlot.Context.CreativeInfinite)
                 {
                     if (ConfigOptions.UseResearchedBannersBuff &&
                         BannerSystem.TryItemToBanner(item.type, out int bannerId) &&
                         Main.LocalPlayer.GetModPlayer<BannerPlayer>().ResearchedBanners.TryGetValue(bannerId, out bool bannerEnabled))
                     {
-                        color = bannerEnabled ? new Color(53, 111, 85) : new Color(107, 57, 81);
+                        color = bannerEnabled ? EnabledBuffColor : DisabledBuffColor;
                     }
                     else if (ConfigOptions.UseResearchedPotionsBuff &&
                     BuffUtils.IsAcceptableBuffItem(item) &&
                     Main.LocalPlayer.GetModPlayer<BuffPlayer>().Buffs.TryGetValue(item.buffType, out bool buffEnabled))
                     {
-                        color = buffEnabled ? new Color(53, 111, 85) : new Color(107, 57, 81);
+                        color = buffEnabled ? EnabledBuffColor : DisabledBuffColor;
                     }
                 }
                 spriteBatch.Draw(texture, position, null, color, 0f, default, Main.inventoryScale, SpriteEffects.None, 0f);

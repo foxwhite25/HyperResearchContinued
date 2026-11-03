@@ -268,6 +268,9 @@ public class HyperConfig : ModConfig
     public bool ShowTotalResearchedItemsCount;
 
     [DefaultValue(true)]
+    public bool ShowMissingItemsButton;
+
+    [DefaultValue(true)]
     public bool PinyinSearch;
         
 

@@ -52,7 +52,15 @@ UI: {
 	}
 
 	ShopButtons.ResearchButtonHoverText: "{$Keybinds.ResearchShop.DisplayName}"
-	DuplicationMenu.TotalResearched: "{0}% researched ({1}/{2} items)"
+
+	DuplicationMenu: {
+		TotalResearched: "{0}% researched ({1}/{2} items)"
+		MissingItems: "{0} missing - click to view"
+		ShowingMissingItems: Missing items: {0} - click to return
+		AllResearched: All researchable items researched!
+		MissingItemsHover: Click to show only items that are not fully researched. Includes modded items; some may be unobtainable.
+		ShowingMissingItemsHover: Click to return to the normal duplication list
+	}
 }
 
 Configs: {
@@ -553,6 +561,16 @@ Configs: {
 				'''
 				Displays the total number and percentage of researchable items 
 				that have been researched under the duplication menu.
+				'''
+		}
+
+		ShowMissingItemsButton: {
+			Label: Show the missing items button
+			Tooltip:
+				'''
+				Adds a clickable missing-items line under the research progress.
+				Click it to show only items that are not fully researched in the duplication menu.
+				The list is read-only; missing items cannot be duplicated.
 				'''
 		}
 

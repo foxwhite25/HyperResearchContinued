@@ -29,7 +29,10 @@ public class BuffPlayer : ModPlayer, IResearchPlayer
         if (KeybindSystem.EnableDisableBuffBind!.JustReleased)
             CurrentSetState = null;
 
+        // Missing items can share a buff type with researched items (Well Fed,
+        // flasks). They must not toggle a buff they have not unlocked themselves.
         if (ConfigOptions.UseResearchedPotionsBuff &&
+            Researcher.IsResearched(Main.HoverItem.type) &&
             Main.HoverItem.tooltipContext == ItemSlot.Context.CreativeInfinite &&
             Buffs.TryGetValue(Main.HoverItem.buffType, out bool enabled))
         {

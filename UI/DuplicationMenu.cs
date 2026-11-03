@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using HyperResearch.Common.Configs;
-using HyperResearch.Common.ModPlayers;
 using HyperResearch.Common.Systems;
 using HyperResearch.Utils;
 using Microsoft.Xna.Framework;
@@ -16,18 +16,34 @@ namespace HyperResearch.UI;
 
 internal class DuplicationMenu : UIState
 {
+    private static readonly Color MissingColor = new(255, 102, 109);
+
     private int _creativePowerSelected;
-    private HyperPlayer? _hyperPlayer;
-    private int _lastItemsResearchedCount;
-    private int _lastResearchableItemsCount;
+    private int _lastTotal = -1;
+    private int _lastMissingCount = -1;
+    private bool _lastMissingMode;
     private LocalizedText _totalResearchedText = null!;
+    private LocalizedText _missingItemsText = null!;
+    private LocalizedText _showingMissingItemsText = null!;
+    private LocalizedText _allResearchedText = null!;
+    private LocalizedText _missingItemsHoverText = null!;
+    private LocalizedText _showingMissingItemsHoverText = null!;
     private UIText _uiTotalResearchedText = null!;
+    private UIText _uiMissingItemsText = null!;
 
     public override void OnInitialize()
     {
         HooksSystem.WorldLoaded += OnWorldLoad;
         HooksSystem.WorldUnloaded += OnWorldUnload;
+        On_UICreativePowersMenu.MainCategoryButtonClick += OnCreativePowerMenuCategoryChanged;
+
         _totalResearchedText = Language.GetText("Mods.HyperResearch.UI.DuplicationMenu.TotalResearched");
+        _missingItemsText = Language.GetText("Mods.HyperResearch.UI.DuplicationMenu.MissingItems");
+        _showingMissingItemsText = Language.GetText("Mods.HyperResearch.UI.DuplicationMenu.ShowingMissingItems");
+        _allResearchedText = Language.GetText("Mods.HyperResearch.UI.DuplicationMenu.AllResearched");
+        _missingItemsHoverText = Language.GetText("Mods.HyperResearch.UI.DuplicationMenu.MissingItemsHover");
+        _showingMissingItemsHoverText =
+            Language.GetText("Mods.HyperResearch.UI.DuplicationMenu.ShowingMissingItemsHover");
 
         _uiTotalResearchedText = new UIText("")
         {
@@ -35,61 +51,143 @@ internal class DuplicationMenu : UIState
             Top = StyleDimension.FromPixelsAndPercent(-60f, 1f),
             TextColor = Colors.JourneyMode
         };
-        On_UICreativePowersMenu.MainCategoryButtonClick += OnCreativePowerMenuCategoryChanged;
+        _uiMissingItemsText = new UIText("")
+        {
+            Left = StyleDimension.FromPixels(88f),
+            Top = StyleDimension.FromPixelsAndPercent(-36f, 1f),
+            TextColor = MissingColor
+        };
+        _uiMissingItemsText.OnLeftClick += (_, _) =>
+        {
+            if (ResearchProgress.MissingCount == 0) return;
+
+            MissingItemsSystem.Toggle();
+            _lastMissingCount = -1;
+        };
+        _uiMissingItemsText.OnUpdate += UpdateMissingItemsHover;
     }
 
     public override void Update(GameTime gameTime)
     {
+        base.Update(gameTime);
+
         if (!Researcher.IsPlayerInJourneyMode) return;
-        if (!HyperConfig.Instance.ShowTotalResearchedItemsCount)
+
+        bool showTotal = HyperConfig.Instance.ShowTotalResearchedItemsCount;
+        bool showMissing = HyperConfig.Instance.ShowMissingItemsButton;
+        bool show = Main.CreativeMenu.Enabled && _creativePowerSelected == 1;
+
+        if (!showTotal && !showMissing)
         {
             if (Children.Any()) RemoveAllChildren();
+            if (MissingItemsSystem.Active) MissingItemsSystem.Deactivate();
             return;
         }
 
-        if (Main.CreativeMenu.Enabled && _creativePowerSelected == 1)
+        if (!show)
         {
-            if (!Children.Any()) Append(_uiTotalResearchedText);
+            if (Children.Any()) RemoveAllChildren();
+
+            // Keep the missing-items mode when the creative menu is closed so it can
+            // reopen on the same view. Changing the main category still resets it.
+            if (MissingItemsSystem.Active
+                && (!showMissing || Main.CreativeMenu.Enabled))
+                MissingItemsSystem.Deactivate();
+
+            return;
+        }
+
+        if (!showMissing && MissingItemsSystem.Active)
+            MissingItemsSystem.Deactivate();
+
+        EnsureChildren(showTotal, showMissing);
+
+        int total = ResearchProgress.Total;
+        int missing = ResearchProgress.MissingCount;
+        if (missing == 0 && MissingItemsSystem.Active)
+            MissingItemsSystem.Deactivate();
+
+        bool active = MissingItemsSystem.Active;
+        if (_lastTotal == total && _lastMissingCount == missing && _lastMissingMode == active) return;
+
+        _lastTotal = total;
+        _lastMissingCount = missing;
+        _lastMissingMode = active;
+        UpdateTexts(total, missing, active);
+    }
+
+    private void EnsureChildren(bool showTotal, bool showMissing)
+    {
+        bool hasTotal = Children.Contains(_uiTotalResearchedText);
+        bool hasMissing = Children.Contains(_uiMissingItemsText);
+        if (hasTotal == showTotal && hasMissing == showMissing) return;
+
+        RemoveAllChildren();
+
+        if (showTotal)
+            Append(_uiTotalResearchedText);
+
+        if (showMissing)
+        {
+            _uiMissingItemsText.Top = StyleDimension.FromPixelsAndPercent(showTotal ? -36f : -60f, 1f);
+            Append(_uiMissingItemsText);
+        }
+    }
+
+    private void UpdateTexts(int total, int missing, bool active)
+    {
+        int researched = Math.Max(0, total - missing);
+        float percent = total > 0 ? (float)researched / total * 100f : 0f;
+
+        _uiTotalResearchedText.TextColor = total > 0 && missing == 0 ? Colors.CoinGold : Colors.JourneyMode;
+        _uiTotalResearchedText.SetText(_totalResearchedText.Format($"{percent:0.00}", researched, total));
+
+        if (missing == 0)
+        {
+            _uiMissingItemsText.SetText(_allResearchedText);
+            _uiMissingItemsText.TextColor = Colors.CoinGold;
+            return;
+        }
+
+        if (active)
+        {
+            _uiMissingItemsText.SetText(_showingMissingItemsText.Format(missing));
+            _uiMissingItemsText.TextColor = Colors.JourneyMode;
         }
         else
         {
-            RemoveAllChildren();
+            _uiMissingItemsText.SetText(_missingItemsText.Format(missing));
+            _uiMissingItemsText.TextColor = MissingColor;
         }
+    }
 
-        if (_hyperPlayer == null) return;
+    private void UpdateMissingItemsHover(UIElement affectedElement)
+    {
+        if (!affectedElement.IsMouseHovering || ResearchProgress.MissingCount == 0) return;
 
-        if (_lastItemsResearchedCount != _hyperPlayer.ItemsResearchedCount
-            || _lastResearchableItemsCount != ResearchSystem.ResearchableItemsCount)
-        {
-            _uiTotalResearchedText.TextColor =
-                _hyperPlayer.ItemsResearchedCount >= ResearchSystem.ResearchableItemsCount
-                    ? Colors.CoinGold
-                    : Colors.JourneyMode;
-            _lastItemsResearchedCount = _hyperPlayer.ItemsResearchedCount;
-            _lastResearchableItemsCount = ResearchSystem.ResearchableItemsCount;
-            _uiTotalResearchedText.SetText(GetTotalResearchedText());
-        }
+        Main.LocalPlayer.mouseInterface = true;
+        Main.instance.MouseText(
+            MissingItemsSystem.Active
+                ? _showingMissingItemsHoverText.Value
+                : _missingItemsHoverText.Value
+        );
     }
 
     private void OnWorldLoad()
     {
         _creativePowerSelected = 0;
-        _hyperPlayer = Main.LocalPlayer.GetModPlayer<HyperPlayer>();
+        _lastTotal = -1;
+        _lastMissingCount = -1;
+        _lastMissingMode = false;
+        MissingItemsSystem.Reset();
+        ResearchProgress.Invalidate();
     }
 
     private void OnWorldUnload()
     {
+        MissingItemsSystem.Reset();
+        ResearchProgress.Invalidate();
         if (Children.Any()) RemoveAllChildren();
-    }
-
-    private string GetTotalResearchedText()
-    {
-        if (_hyperPlayer == null) return "";
-
-        var percentResearched =
-            $"{(float)_hyperPlayer.ItemsResearchedCount / ResearchSystem.ResearchableItemsCount * 100:0.00}";
-        return _totalResearchedText.Format(percentResearched, _hyperPlayer.ItemsResearchedCount,
-            ResearchSystem.ResearchableItemsCount);
     }
 
     private void OnCreativePowerMenuCategoryChanged(On_UICreativePowersMenu.orig_MainCategoryButtonClick orig,
@@ -104,8 +202,8 @@ internal class DuplicationMenu : UIState
         FieldInfo? currentOptionField = menuTree?.GetType().GetField("CurrentOption");
         if (currentOptionField is null) return;
 
-        _uiTotalResearchedText.Left = StyleDimension.FromPixels(88f);
-        _uiTotalResearchedText.Top = StyleDimension.FromPixelsAndPercent(-60f, 1f);
         _creativePowerSelected = (int)(currentOptionField.GetValue(menuTree) ?? 0);
+        if (_creativePowerSelected != 1 && MissingItemsSystem.Active)
+            MissingItemsSystem.Deactivate();
     }
 }

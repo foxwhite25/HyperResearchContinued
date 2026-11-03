@@ -42,7 +42,10 @@ public class BannerPlayer : ModPlayer, IResearchPlayer
         if (KeybindSystem.ForgetAllBind!.JustPressed)
             ResearchedBanners.Clear();
 #endif 
+        // A missing item must not toggle a banner that was unlocked through
+        // another item.
         if (Main.HoverItem.tooltipContext == ItemSlot.Context.CreativeInfinite &&
+            Researcher.IsResearched(Main.HoverItem.type) &&
             ConfigOptions.UseResearchedBannersBuff &&
             BannerSystem.TryItemToBanner(Main.HoverItem.type, out int bannerId) &&
             ResearchedBanners.TryGetValue(bannerId, out bool enabled))

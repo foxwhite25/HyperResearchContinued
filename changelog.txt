@@ -2,9 +2,12 @@ HyperResearch Continued v{ModVersion} has been published to {tMLBuildPurpose} tM
 
 [h1]Changes[/h1]
 [list]
-[*] Added a "Show deleted items" option to the Messages Settings that reports researched items removed from the inventory by the Clear action or the auto-trash options.
-[*] The auto-trash options and the new "Show deleted items" option now warn that using them together will produce a chat message for every deleted item.
-[*] The "Show sacrificed items" option now warns that using it together with Auto-sacrifice will produce a chat message for every sacrificed item.
-[*] Fixed the "Ignore moon phase conditions" option not applying to the Skeleton Merchant's full moon stock and to the Luminite Brick's shimmer transmutations.
-[*] Shimmer research now recognizes the game's hardcoded transmutations that are missing from the shimmer transmutation table (Rod of Discord, Clentaminator, Bottomless Buckets and Music Boxes).
+[*] Added a missing-items view to the duplication menu. The progress tracker now shows how many items are missing; click it to show only unresearched items, with the normal search, category filters, and pinyin search still working.
+[*] Missing items are read-only and cannot be duplicated from the missing-items view.
+[*] Missing items use the disabled-buff red tint. Buff and banner toggle tooltips and keybinds are disabled for items that are not researched, including items that share an enabled buff such as Well Fed.
+[*] The missing-items view is remembered when the creative menu is closed and reopened. It still resets when the creative menu category changes or the world unloads.
+[*] Added a "Show missing items button" option to the UI Settings.
+[*] The research progress tracker now excludes items that cannot be researched and items that share research with another item, so the total and percentage match the missing-items list.
+[*] Research progress tooltips are now shown for missing items in the duplication menu even when the custom research tooltip option is disabled.
+[*] Added localization for the new UI in English, Russian, and Simplified Chinese.
 [/list]

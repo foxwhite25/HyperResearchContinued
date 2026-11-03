@@ -17,6 +17,7 @@ public class ResearchSystem : ModSystem
         
         OverrideDefaultResearchCount();
         CalculateResearchable();
+        ResearchProgress.Invalidate();
     }
 
     private void OverrideDefaultResearchCount()

@@ -19,6 +19,7 @@ public class BuffGlobalItem : GlobalItem
     {
         if (!Researcher.IsPlayerInJourneyMode
             || !HyperConfig.Instance.ShowPotionBuffTooltips
+            || !Researcher.IsResearched(item.type)
             || item.tooltipContext != ItemSlot.Context.CreativeInfinite
             || !ConfigOptions.UseResearchedPotionsBuff
             || !BuffUtils.IsAcceptableBuffItem(item)

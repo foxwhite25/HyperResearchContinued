@@ -7,7 +7,7 @@ The mod gives you a lot of settings in the config, so take a look there and cust
 
 [h1]Core Gameplay Enhancements[/h1]
 [list]
-[*][b]Effortless Research:[/b] Automatically research items directly from your inventory – no need to constantly open the Research Menu.
+[*][b]Effortless Research:[/b] Automatically research items directly from your inventory, no need to constantly open the Research Menu.
 [*][b]Smart Auto-Research:[/b] Automatically research craftable (required materials and have access to the necessary crafting stations), shimmerable and decraftable items.
 [*][b]Inventory Cleaning:[/b] Automatically (or manualy) clean researched items from your inventory (configurable).
 [*][b]Stay Informed:[/b] Receive notifications for all newly researched items grouped by the research source.
@@ -22,7 +22,7 @@ The mod gives you a lot of settings in the config, so take a look there and cust
 [h2]Additional Quality of Life[/h2]
 [list]
 [*][b]Modifier Selector:[/b] Choose item modifiers directly within the duplication menu.
-[*][b]Pinyin Search:[/b] Find items in the duplication menu by pinyin – full, initials, substrings, or mixed Chinese/pinyin (powered by ToolGood.Words.Pinyin).
+[*][b]Pinyin Search:[/b] Find items in the duplication menu by pinyin: full, initials, substrings, or mixed Chinese/pinyin (powered by ToolGood.Words.Pinyin).
 [*][b]Shop Auto-Research:[/b] Automatically research the contents of NPC shops.
 [*][b]One-Tap Loot Research:[/b] Research the entire contents of bags, crates, and other loot containers instantly.
 [*][b]Infinite Consumables:[/b] Infinite stacks of researched consumables like potions, blocks, throwing weapons, and more (configurable categories).
@@ -34,7 +34,6 @@ The mod gives you a lot of settings in the config, so take a look there and cust
 [h3]Extra Conveniences[/h3]
 [list]
 [*][b]Universal Tooltip:[/b] See a custom research tooltip that works even with other mod item slots.
-[*][b]Progress Tracker:[/b] Easily view how many items you've researched out of the total available.
+[*][b]Progress Tracker:[/b] Easily view how many items you've researched out of the total available and what item are missing.
 [*][b]Stack Management:[/b] Automatically stack researched items to their maximum capacity.
 [*]Optionally set the research requirement for duplication to just one item.
-[/list]

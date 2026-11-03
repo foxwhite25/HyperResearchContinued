@@ -19,6 +19,7 @@ public class BannerGlobalItem : GlobalItem
     {
         if (!Researcher.IsPlayerInJourneyMode
             || !HyperConfig.Instance.ShowBannerBuffTooltips
+            || !Researcher.IsResearched(item.type)
             || item.tooltipContext != ItemSlot.Context.CreativeInfinite
             || !ConfigOptions.UseResearchedBannersBuff
             || !BannerSystem.TryItemToBanner(item.type, out int bannerId)

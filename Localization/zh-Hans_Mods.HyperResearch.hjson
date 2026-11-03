@@ -52,7 +52,15 @@ UI: {
 	}
 
 	ShopButtons.ResearchButtonHoverText: "{$Keybinds.ResearchShop.DisplayName}"
-	DuplicationMenu.TotalResearched: "{0}% 已研究（{1}/{2} 个物品）"
+
+	DuplicationMenu: {
+		TotalResearched: "{0}% 已研究（{1}/{2} 个物品）"
+		MissingItems: 缺少 {0} 个物品 - 点击查看
+		ShowingMissingItems: 缺失物品：{0} - 点击返回
+		AllResearched: 所有可研究物品均已研究！
+		MissingItemsHover: 点击仅显示尚未完全研究的物品。列表包含模组物品，其中一些可能无法获得。
+		ShowingMissingItemsHover: 点击返回普通复制列表
+	}
 }
 
 Configs: {
@@ -550,6 +558,16 @@ Configs: {
 				'''
 				在复制菜单下方显示已研究的可研究物品
 				总数和百分比。
+				'''
+		}
+
+		ShowMissingItemsButton: {
+			Label: 显示缺失物品按钮
+			Tooltip:
+				'''
+				在研究进度下方添加一行可点击的缺失物品提示。
+				点击后在复制菜单中仅显示尚未完全研究的物品。
+				该列表仅供查看，缺失物品无法复制。
 				'''
 		}
 
